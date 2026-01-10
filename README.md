@@ -1,238 +1,320 @@
-设计一个通用的试卷 JSON 数据结构是开发可视化答题系统的核心。这个结构需要既能兼容客观题（机器可自动判分），也能兼容主观题（通常需要人工或关键词判分，但在前端模拟中可以展示参考答案）。
+# ExamViz
 
-以下我为你设计的一套 **标准试卷 JSON 数据协议**。它采用了分层结构：**试卷元数据 (Meta) -> 大题章节 (Sections) -> 具体题目 (Questions)**。
+一个 **JSON 驱动**的试卷/练习题渲染工具：把试卷定义成 JSON，在浏览器中完成 **渲染、作答、自动判分、查看解析**。
 
-### 1. JSON 数据结构设计
+![预览](./exam-paper-test.jpg)
 
-这份 JSON 涵盖了你提到的所有题型（单选、多选、判断、填空、简答、计算、代码），并预留了扩展字段。
+## 功能特性
+
+- **两种答题模式**
+  - **整卷模式（Full）**：按大题/章节折叠展示所有题目，右侧显示分数与进度
+  - **逐题模式（Single）**：一次只展示一道题，底部提供上一题/下一题导航 + 右侧抽屉答题卡
+- **从文件加载试卷 JSON**：点击页面右上角“加载 JSON”，直接导入 `*.json`
+- **自动判分（客观题/部分题型）**
+  - 单选 / 判断：对比答案
+  - 多选：支持“选对得部分分、选错全扣”策略
+  - 填空：按空计分（大小写不敏感）
+  - 编程题：基于代码文本规范化后的对比（可展示参考答案）
+- **提交后显示解析**：展示正确答案、解析文本、得分状态（正确/部分正确/错误/待评分）
+- **LaTeX 渲染**：题目可通过 `isLatex: true` 启用公式渲染（KaTeX）
+
+## 技术栈
+
+- React 19 + TypeScript
+- Vite 7
+- Zustand（状态管理）
+- Ant Design（UI）
+- Tailwind CSS（样式）
+- KaTeX + react-latex-next（公式渲染）
+- react-syntax-highlighter（代码高亮）
+
+## 环境要求
+
+- Node.js：`^20.19.0 || >=22.12.0`（Vite 7 要求）
+- 包管理器：推荐 `pnpm`（本仓库包含 `pnpm-lock.yaml`）
+
+## 快速开始
+
+```bash
+pnpm install
+pnpm dev
+```
+
+构建与预览：
+
+```bash
+pnpm build
+pnpm preview
+```
+
+代码检查：
+
+```bash
+pnpm lint
+```
+
+## 使用说明
+
+1. 启动项目后，页面会默认加载示例试卷：`src/assets/ML1.json`
+2. 点击右上角 **“加载 JSON”**，选择你自己的试卷文件
+3. 通过顶部切换：
+   - **整卷模式**：适合完整模拟
+   - **逐题模式**：适合刷题；支持底部导航与抽屉“答题卡”
+4. 点击 **“提交试卷/提交”**：
+   - 可自动判分的题会立即计算得分
+   - `short_answer` / `calculation`（以及无参考答案的 `coding`）会显示为 **待评分**
+
+## 试卷 JSON 协议（核心）
+
+项目内 TypeScript 类型定义位于：`src/types/exam.ts`。下面是与当前实现一致的字段说明与示例。
+
+### 1) 顶层结构
+
+```ts
+export interface ExamPaper {
+  examMeta: {
+    id: string;
+    title: string;
+    totalScore: number;
+    duration: number;     // 分钟
+    createTime: string;   // ISO 字符串
+    description: string;
+  };
+  sections: Array<{
+    id: string;
+    title: string;
+    description: string;
+    type: string;         // 目前主要用于展示
+    questions: Question[];
+  }>;
+}
+```
+
+### 2) 题目结构
+
+```ts
+export type QuestionType =
+  | 'single_choice'
+  | 'multiple_choice'
+  | 'true_false'
+  | 'fill_in_blank'
+  | 'short_answer'
+  | 'calculation'
+  | 'coding';
+
+export interface Question {
+  id: string;                 // 题目唯一 ID（用于保存作答）
+  idx: number;                // 展示序号（如 1、2、3…）
+  score: number;              // 该题分值
+  type: QuestionType;         // 题型
+  content: string;            // 题干（支持换行）
+  options?: Array<{           // 选择题/判断题选项（判断题可省略）
+    label: string;            // A/B/C… 或 True/False
+    value: string;            // 选项文本
+  }>;
+  correctAnswer: string | string[]; // 参考/正确答案（随题型变化）
+  analysis: string;           // 解析（提交后展示）
+
+  // 可选扩展
+  isLatex?: boolean;          // true 时 content 使用 LaTeX 渲染
+  codeLanguage?: string;      // coding：参考答案高亮语言（如 "python"）
+  defaultCode?: string;       // coding：输入框占位/初始提示
+}
+```
+
+### 3) 各题型 `correctAnswer` 约定
+
+| 题型 `type` | `correctAnswer` 格式 | 是否自动判分 | 备注 |
+| --- | --- | --- | --- |
+| `single_choice` | `"A"` / `"B"` / `"C"`…（选项 `label`） | 是 | 大小写不敏感（内部会规范化） |
+| `multiple_choice` | `["A","C"]`（选项 `label` 数组） | 是 | **含错项=0 分**；全对满分；部分对按比例给分 |
+| `true_false` | `"True"` / `"False"`（选项 `label`） | 是 | 若未提供 `options`，默认 True/False |
+| `fill_in_blank` | `["答案1","答案2"]` | 是 | 按空给分；大小写不敏感；空格会被 trim |
+| `short_answer` | `"参考答案文本"` | 否（待评分） | 提交后展示参考答案与解析 |
+| `calculation` | `"参考答案/过程"` | 否（待评分） | 提交后展示参考答案与解析 |
+| `coding` | `"参考代码"` | 是/否 | 有 `correctAnswer` 才会自动判分；否则为待评分 |
+
+### 4) 填空题的“空位数量”
+
+`fill_in_blank` 的空位数量优先取 `correctAnswer.length`；如果 `correctAnswer` 不是数组，则会尝试根据题干中的 `___` 统计空位数。
+
+示例：
+
+```json
+{
+  "id": "Q_FILL_01",
+  "idx": 1,
+  "score": 5,
+  "type": "fill_in_blank",
+  "content": "CSS 中，id 选择器权重是 ___，类选择器权重是 ___。",
+  "correctAnswer": ["100", "10"],
+  "analysis": "ID 为 100，class 为 10。"
+}
+```
+
+### 5) LaTeX 示例
+
+```json
+{
+  "id": "Q_LATEX_01",
+  "idx": 1,
+  "score": 5,
+  "type": "calculation",
+  "content": "计算积分：$\\int_0^1 x^2 \\mathrm{d}x$。",
+  "correctAnswer": "1/3",
+  "analysis": "原函数为 $x^3/3$，代入上下限得到 1/3。",
+  "isLatex": true
+}
+```
+
+### 6) 最小可运行试卷示例（覆盖常见题型）
+
+> 提示：这是一个“可以直接导入页面”的完整示例（字段可按需增删，但需保证 JSON 合法）。
 
 ```json
 {
   "examMeta": {
-    "id": "EXAM_2023_001",
-    "title": "2024年全栈开发工程师综合测试卷",
-    "totalScore": 100,
-    "duration": 90, 
-    "createTime": "2024-01-10T09:00:00Z",
-    "description": "本试卷包含基础理论与编程实战，请在规定时间内完成。"
+    "id": "DEMO_EXAM_001",
+    "title": "JSON2Test 示例试卷",
+    "totalScore": 20,
+    "duration": 30,
+    "createTime": "2026-01-10T00:00:00Z",
+    "description": "用于演示各题型的数据结构与判分规则。"
   },
   "sections": [
     {
       "id": "SEC_01",
-      "title": "第一部分：基础知识 (单选题)",
-      "description": "每题只有一个正确选项。",
-      "type": "single_choice",
+      "title": "一、选择与判断",
+      "description": "单选 / 多选 / 判断",
+      "type": "objective",
       "questions": [
         {
-          "id": "Q_01",
+          "id": "Q_SC_01",
           "idx": 1,
-          "score": 5,
+          "score": 2,
           "type": "single_choice",
-          "content": "在 HTTP 协议中，表示“服务器内部错误”的状态码是？",
+          "content": "Vite 默认的开发命令是？",
           "options": [
-            { "label": "A", "value": "200" },
-            { "label": "B", "value": "404" },
-            { "label": "C", "value": "500" },
-            { "label": "D", "value": "301" }
+            { "label": "A", "value": "vite" },
+            { "label": "B", "value": "vite build" },
+            { "label": "C", "value": "vite preview" }
           ],
-          "correctAnswer": "C",
-          "analysis": "500 Internal Server Error 是服务器端错误的通用状态码。"
+          "correctAnswer": "A",
+          "analysis": "开发环境一般直接运行 vite（对应 npm script: dev）。"
+        },
+        {
+          "id": "Q_MC_01",
+          "idx": 2,
+          "score": 4,
+          "type": "multiple_choice",
+          "content": "以下哪些属于前端常见的状态管理方案？",
+          "options": [
+            { "label": "A", "value": "Redux" },
+            { "label": "B", "value": "Zustand" },
+            { "label": "C", "value": "Zod" },
+            { "label": "D", "value": "MobX" }
+          ],
+          "correctAnswer": ["A", "B", "D"],
+          "analysis": "Zod 是校验库；Redux/Zustand/MobX 属于状态管理。"
+        },
+        {
+          "id": "Q_TF_01",
+          "idx": 3,
+          "score": 2,
+          "type": "true_false",
+          "content": "React 中的 state 变化会触发 UI 重新渲染。",
+          "correctAnswer": "True",
+          "analysis": "React 采用声明式渲染，状态变化会驱动视图更新。"
         }
       ]
     },
     {
       "id": "SEC_02",
-      "title": "第二部分：进阶理解 (多选题)",
-      "description": "少选得部分分，错选不得分。",
-      "type": "multiple_choice",
-      "questions": [
-        {
-          "id": "Q_02",
-          "idx": 2,
-          "score": 10,
-          "type": "multiple_choice",
-          "content": "以下哪些是 JavaScript 的基本数据类型？",
-          "options": [
-            { "label": "A", "value": "Number" },
-            { "label": "B", "value": "String" },
-            { "label": "C", "value": "List" },
-            { "label": "D", "value": "Boolean" }
-          ],
-          "correctAnswer": ["A", "B", "D"],
-          "analysis": "List 是 Python 的概念，JS 中对应的是 Array（引用类型）。"
-        }
-      ]
-    },
-    {
-      "id": "SEC_03",
-      "title": "第三部分：快速判断 (判断题)",
-      "type": "true_false",
-      "questions": [
-        {
-          "id": "Q_03",
-          "idx": 3,
-          "score": 5,
-          "type": "true_false",
-          "content": "Vue.js 中的 v-if 和 v-show 是一样的。",
-          "options": [
-            { "label": "True", "value": "正确" },
-            { "label": "False", "value": "错误" }
-          ],
-          "correctAnswer": "False",
-          "analysis": "v-if 是条件渲染（DOM销毁重建），v-show 是 CSS 切换（display: none）。"
-        }
-      ]
-    },
-    {
-      "id": "SEC_04",
-      "title": "第四部分：填空与计算",
+      "title": "二、填空与主观题",
+      "description": "填空 / 简答 / 编程",
       "type": "mixed",
       "questions": [
         {
-          "id": "Q_04",
+          "id": "Q_FIB_01",
           "idx": 4,
-          "score": 10,
+          "score": 4,
           "type": "fill_in_blank",
-          "content": "CSS 中，id 选择器的权重是 ___，类选择器的权重是 ___ 。",
+          "content": "CSS 中，id 选择器权重是 ___，类选择器权重是 ___。",
           "correctAnswer": ["100", "10"],
-          "analysis": "ID选择器权重为100，类、伪类、属性选择器权重为10。"
+          "analysis": "权重常见记法：id=100，class=10。"
         },
         {
-          "id": "Q_05",
+          "id": "Q_SA_01",
           "idx": 5,
-          "score": 10,
-          "type": "calculation",
-          "content": "计算积分：$\\int_0^1 x^2 dx$ 的值。",
-          "correctAnswer": "1/3",
-          "analysis": "x^2 的原函数是 x^3/3，代入上下限 1 和 0，得 1/3。",
-          "isLatex": true
-        }
-      ]
-    },
-    {
-      "id": "SEC_05",
-      "title": "第五部分：主观综合题",
-      "type": "subjective",
-      "questions": [
-        {
-          "id": "Q_06",
-          "idx": 6,
-          "score": 15,
+          "score": 4,
           "type": "short_answer",
-          "content": "简述什么是跨域（CORS）及其常见的解决方案。",
-          "correctAnswer": "关键点：1. 协议、域名、端口不同；2. JSONP；3. CORS头设置；4. Nginx反向代理。",
-          "analysis": "本题主要考察同源策略的理解及工程化解决能力。"
+          "content": "简述你理解的“前端工程化”包含哪些方面？",
+          "correctAnswer": "参考点：构建工具、规范化、测试、CI/CD、发布与监控等。",
+          "analysis": "该题为主观题，当前实现标记为待评分。"
         },
         {
-          "id": "Q_07",
-          "idx": 7,
-          "score": 20,
+          "id": "Q_CODE_01",
+          "idx": 6,
+          "score": 4,
           "type": "coding",
-          "content": "请写一个 Python 函数 `is_palindrome` 判断字符串是否为回文。",
+          "content": "请写一个函数 add(a, b)，返回 a + b。",
+          "defaultCode": "def add(a, b):\\n    # TODO\\n    pass\\n",
           "codeLanguage": "python",
-          "correctAnswer": "def is_palindrome(s):\n    return s == s[::-1]",
-          "analysis": "利用切片操作 s[::-1] 进行字符串反转比较。",
-          "defaultCode": "def is_palindrome(s):\n    # Write your code here\n    pass"
+          "correctAnswer": "def add(a, b):\\n    return a + b\\n",
+          "analysis": "当前编程题判分为“规范化后的文本对比”。"
         }
       ]
     }
   ]
 }
-
 ```
 
----
+## 判分规则（当前实现）
 
-### 2. 字段详细定义与解析规则
+判分逻辑位于：`src/utils/grading.ts`。
 
-为了让前端能够通用地解析这个 JSON，我们需要定义每个字段的含义：
+- **未作答**：0 分，状态 `unanswered`
+- **单选/判断**：答案相同得满分，否则 0 分
+- **多选**：
+  - 若选择中包含任意一个错误选项：0 分
+  - 只选对一部分：按 `选对数量 / 正确答案数量 * 分值` 计分（保留两位小数）
+- **填空**：按空计分，`正确空数 / 总空数 * 分值`（保留两位小数）
+- **简答/计算**：状态 `pending`（待人工评分），默认 0 分
+- **编程**：
+  - 若 `correctAnswer` 为空：状态 `pending`
+  - 否则对代码进行规范化（换行统一、去除行尾空格等）后做文本对比
 
-#### A. 根节点 (`examMeta`)
+## 目录结构
 
-| 字段名 | 类型 | 说明 |
-| --- | --- | --- |
-| `id` | String | 试卷唯一标识 |
-| `title` | String | 试卷标题 |
-| `totalScore` | Number | 总分 |
-| `duration` | Number | 考试时长（分钟），用于倒计时功能 |
+```
+.
+├─ public/
+├─ src/
+│  ├─ assets/                 # 示例试卷 JSON（如 ML1.json）
+│  ├─ components/             # UI 组件（题卡/答题卡/导航等）
+│  ├─ store/                  # Zustand store
+│  ├─ types/                  # TS 类型（ExamPaper/Question 等）
+│  └─ utils/                  # 判分/统计逻辑
+├─ index.html
+├─ vite.config.ts
+└─ package.json
+```
 
-#### B. 章节节点 (`sections`)
+## 扩展开发（新增题型）
 
-试卷通常是分块的，`sections` 数组用于渲染类似“第一大题”、“第二大题”的折叠面板或标题。
+如果你想新增题型（例如：匹配题、排序题、拖拽题），建议按以下顺序改动：
 
-#### C. 题目核心节点 (`questions` item)
+1. `src/types/exam.ts`：扩展 `QuestionType` 与 `Question` 字段
+2. `src/components/AnswerInputs/`：新增输入组件
+3. `src/components/QuestionCard.tsx`：在 `switch (question.type)` 中接入新组件
+4. `src/utils/grading.ts`：实现对应的判分逻辑（或标记为 `pending`）
 
-这是最关键的部分，前端需要根据 `type` 字段渲染不同的 UI 组件。
+## 常见问题
 
-| 字段名 | 类型 | 必须 | 说明 |
-| --- | --- | --- | --- |
-| `id` | String | 是 | 题目唯一ID，用于绑定答案数据 |
-| `idx` | Number | 是 | 题目显示的序号（如 1, 2, 3） |
-| `type` | String | 是 | **核心字段**，决定渲染逻辑（见下文枚举） |
-| `score` | Number | 是 | 该题分值 |
-| `content` | String | 是 | 题干，支持 HTML 或 Markdown（如插入图片 `<img src...>`） |
-| `options` | Array | 否 | 用于选择题，包含 `{label: 'A', value: 'xxx'}` |
-| `correctAnswer` | Any | 是 | 正确答案（数据结构随 `type` 变化） |
-| `analysis` | String | 是 | 详细解析，交卷后显示 |
-| `isLatex` | Boolean | 否 | 如果为 `true`，前端需调用 MathJax/KaTeX 渲染公式 |
+- **加载 JSON 失败**：请检查是否为合法 JSON；至少要包含 `examMeta.title` 与 `sections` 数组
+- **中文乱码/显示异常**：建议将 JSON 文件保存为 UTF-8 编码
+- **编程题自动判分太严格**：当前是“规范化后的文本对比”，不是语义对比；可选择把该题设为待评分（将 `correctAnswer` 置空）
 
-#### D. `type` 枚举与 `correctAnswer` 数据格式
+## License
 
-前端判分逻辑需要根据 `type` 处理 `correctAnswer`：
-
-1. **`single_choice` (单选)**
-* **UI:** Radio Group (单选框组)
-* **Answer:** String (例如 `"C"`)
-* **判分:** `userVal === correctVal`
-
-
-2. **`multiple_choice` (多选)**
-* **UI:** Checkbox Group (复选框组)
-* **Answer:** Array<String> (例如 `["A", "B"]`)
-* **判分:** 数组内容完全一致（需要排序后比较）。
-
-
-3. **`true_false` (判断)**
-* **UI:** Radio Group (两个选项)
-* **Answer:** String (`"True"` / `"False"` 或自定义)
-
-
-4. **`fill_in_blank` (填空)**
-* **UI:** 根据 `correctAnswer` 的长度生成对应数量的 Input 框。
-* **Answer:** Array<String> (例如 `["100", "10"]`)
-* **判分:** 依次比对数组中的每个填空项。
-
-
-5. **`short_answer` / `calculation` (简答/计算)**
-* **UI:** Textarea (多行文本框)
-* **Answer:** String (参考答案文本)
-* **判分:** **注意**：此类题目通常无法前端自动精准判分。前端逻辑一般是：用户提交后，显示“待人工评分”或仅展示参考答案供自测。
-
-
-6. **`coding` (代码题)**
-* **UI:** Code Editor (如 Monaco Editor)
-* **Answer:** String (标准代码)
-* **扩展字段:** `codeLanguage` (高亮语法), `defaultCode` (编辑器初始占位符)。
-
-
-
----
-
-### 3. 可视化功能的实现建议
-
-在这一步，我们不写代码，而是梳理**读取 JSON 后的前端逻辑**：
-
-#### 模式一：整卷阅读 (Full Paper Mode)
-
-* **渲染逻辑：** 遍历 `sections`，嵌套遍历 `questions`，直接在一个长滚动页面中渲染所有题目。
-* **适用场景：** 传统考试模拟，最后统一点击“提交”按钮。
-* **计分：** 点击提交后，遍历所有组件的选中状态，对比 JSON 中的 `correctAnswer` 计算总分。
-
-#### 模式二：逐题阅读 (Single Question Mode)
-
-* **渲染逻辑：** 维护一个 `currentQuestionIndex`。界面只显示 `questions[currentQuestionIndex]`。
-* **UI 元素：** 需要“上一题”、“下一题”按钮，以及一个“答题卡”浮层（显示 1-100 的小圆圈，点击跳转）。
-* **适用场景：** 刷题练习（LeetCode 模式）。
-* **计分：** 每做完一题，立即比对并显示“回答正确/错误”，实时更新顶部“当前得分”。
-#   E x a m V i z  
- 
+本项目暂未提供 LICENSE，如需开源发布请补充 `LICENSE` 文件并注明协议。
