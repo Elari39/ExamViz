@@ -17,7 +17,7 @@ export default function ScorePanel() {
   const answeredPercentage = Math.round((answeredCount / stats.totalQuestions) * 100);
 
   return (
-    <Card className="!rounded-xl !border-gray-200 shadow-sm sticky top-4">
+    <Card className="!rounded-xl !border-gray-200 shadow-sm sticky top-20">
       <div className="space-y-4">
         <div className="text-center">
           <Text type="secondary" className="text-sm">试卷总分</Text>

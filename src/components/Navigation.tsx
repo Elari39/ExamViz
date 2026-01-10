@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Progress, Space } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
 import { useExamStore } from '../store/examStore';
@@ -29,19 +29,38 @@ export default function Navigation() {
   const isLast =
     currentSectionIndex === sections.length - 1 &&
     currentQuestionIndex === sections[currentSectionIndex].questions.length - 1;
+  const answeredPercentage =
+    stats.totalQuestions > 0 ? Math.round((answeredCount / stats.totalQuestions) * 100) : 0;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg py-4 px-6 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="text-gray-600">
-          <span className="font-medium">
-            {sections[currentSectionIndex].title}
-          </span>
-          <span className="mx-2">·</span>
-          <span>第 {sections[currentSectionIndex].questions[currentQuestionIndex].idx} 题</span>
-          <span className="ml-3 text-xs text-gray-500 hidden sm:inline">
-            当前得分 {stats.currentScore} / {stats.autoTotalScore} · 进度 {answeredCount} / {stats.totalQuestions}
-          </span>
+        <div className="text-gray-700">
+          <div className="leading-tight">
+            <span className="font-medium">{sections[currentSectionIndex].title}</span>
+            <span className="mx-2 text-gray-300">·</span>
+            <span className="text-gray-600">
+              第 {sections[currentSectionIndex].questions[currentQuestionIndex].idx} 题
+            </span>
+          </div>
+          <div className="mt-1 flex items-center gap-3 text-xs text-gray-600">
+            <span className="tabular-nums">
+              自动得分 <span className="font-semibold text-blue-600">{stats.currentScore}</span> /{' '}
+              {stats.autoTotalScore}
+            </span>
+            <span className="text-gray-300">·</span>
+            <span className="tabular-nums">
+              已答 <span className="font-semibold">{answeredCount}</span> / {stats.totalQuestions}
+            </span>
+            <div className="hidden sm:block w-28">
+              <Progress
+                percent={answeredPercentage}
+                size="small"
+                showInfo={false}
+                strokeColor="#3b82f6"
+              />
+            </div>
+          </div>
         </div>
 
         <Space size="large">
