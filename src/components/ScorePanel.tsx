@@ -81,10 +81,7 @@ export default function ScorePanel() {
           <div className="space-y-4">
             <div className="text-center">
               <Text type="secondary" className="text-sm">当前得分（自动判分）</Text>
-              <div className="text-2xl font-bold text-blue-600">
-                {stats.currentScore}
-                <span className="text-base text-gray-400 font-normal">分</span>
-              </div>
+              <div className="text-sm font-semibold text-gray-500">提交后显示</div>
             </div>
             <div>
               <div className="flex justify-between text-sm mb-2">

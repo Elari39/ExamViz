@@ -206,7 +206,7 @@ export default function QuestionCard({ question }: Props) {
             </Tag>
           </div>
           <div className="text-gray-800 text-lg leading-relaxed">
-            <MarkdownContent content={question.content} enableMath={Boolean(question.isLatex)} />
+            <MarkdownContent content={question.content} enableMath={question.isLatex} />
           </div>
         </div>
       </div>

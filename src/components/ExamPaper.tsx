@@ -111,7 +111,7 @@ export default function ExamPaper() {
                     自动得分
                   </Text>
                   <div className="text-base font-semibold text-blue-600 tabular-nums">
-                    {submitted || viewMode === 'full' ? (
+                    {submitted ? (
                       <>
                         {stats.currentScore}
                         <span className="text-xs font-normal text-gray-500">

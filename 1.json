@@ -1,0 +1,529 @@
+{
+  "examMeta": {
+    "id": "EXAM_2024_INTEL_ROBOTICS_001",
+    "title": "智能机器人原理与实践模拟试卷",
+    "totalScore": 100,
+    "duration": 100,
+    "createTime": "2024-06-01T00:00:00Z",
+    "description": "请将答案写在答题纸上。简答题请务必详尽回答，字数不足将严厉扣分。"
+  },
+  "sections": [
+    {
+      "id": "SEC_01",
+      "title": "一、 单项选择题",
+      "description": "共 15 题，每题 2 分，共 30 分",
+      "type": "single_choice",
+      "questions": [
+        {
+          "id": "Q_01",
+          "idx": 1,
+          "score": 2,
+          "type": "single_choice",
+          "content": "智能机器人的经典架构设计遵循的反馈控制框架是：",
+          "options": [
+            { "label": "A", "value": "感知-思维-决策" },
+            { "label": "B", "value": "感知-控制-执行" },
+            { "label": "C", "value": "输入-处理-输出" },
+            { "label": "D", "value": "观察-判断-行动" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "智能机器人的经典架构是“感知（获取外界信息）-控制（决策处理）-执行（驱动机构动作）”。"
+        },
+        {
+          "id": "Q_02",
+          "idx": 2,
+          "score": 2,
+          "type": "single_choice",
+          "content": "下列关于机器人定义的描述，正确的是：",
+          "options": [
+            { "label": "A", "value": "机器人必须长得像人" },
+            { "label": "B", "value": "机器人是不可编程的机器" },
+            { "label": "C", "value": "机器人是能够自动执行一系列复杂动作的机器" },
+            { "label": "D", "value": "机器人只能由外部设备控制" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "机器人本质是可编程的机器，不一定要有人的外形。"
+        },
+        {
+          "id": "Q_03",
+          "idx": 3,
+          "score": 2,
+          "type": "single_choice",
+          "content": "在平坦地面上，哪种移动机构的效率最高、稳定性最好？",
+          "options": [
+            { "label": "A", "value": "足式" },
+            { "label": "B", "value": "履带式" },
+            { "label": "C", "value": "轮式" },
+            { "label": "D", "value": "蠕动式" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "在平整地面，轮式机构效率最高、运动最快。足式适合复杂地形但效率低。"
+        },
+        {
+          "id": "Q_04",
+          "idx": 4,
+          "score": 2,
+          "type": "single_choice",
+          "content": "直流有刷电机的转速与下列哪个物理量成正比？",
+          "options": [
+            { "label": "A", "value": "电流" },
+            { "label": "B", "value": "电压" },
+            { "label": "C", "value": "电感" },
+            { "label": "D", "value": "磁通量" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "转速与电压成正比，转矩（力量）与电流成正比。"
+        },
+        {
+          "id": "Q_05",
+          "idx": 5,
+          "score": 2,
+          "type": "single_choice",
+          "content": "PWM波中，一个脉冲周期内高电平的时间与整个周期时间的比例被称为：",
+          "options": [
+            { "label": "A", "value": "频率" },
+            { "label": "B", "value": "周期" },
+            { "label": "C", "value": "占空比" },
+            { "label": "D", "value": "分辨率" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "占空比（Duty Cycle）定义为一个脉冲周期内，高电平占据的总时间比例。"
+        },
+        {
+          "id": "Q_06",
+          "idx": 6,
+          "score": 2,
+          "type": "single_choice",
+          "content": "使用超声波传感器测距，若声速为 c，发射到接收的时间差为 t，则距离 s 的公式为：",
+          "options": [
+            { "label": "A", "value": "s = c · t" },
+            { "label": "B", "value": "s = c · t²" },
+            { "label": "C", "value": "s = c · t / 2" },
+            { "label": "D", "value": "s = 2 · c / t" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "声呐发出的声波是往返路程，所以计算距离时要除以2。"
+        },
+        {
+          "id": "Q_07",
+          "idx": 7,
+          "score": 2,
+          "type": "single_choice",
+          "content": "加速度计在计算机器人位移时，需要进行几次积分？",
+          "options": [
+            { "label": "A", "value": "一次" },
+            { "label": "B", "value": "二次" },
+            { "label": "C", "value": "三次" },
+            { "label": "D", "value": "不需要积分" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "加速度积分一次得到速度，再积分一次得到位移。"
+        },
+        {
+          "id": "Q_08",
+          "idx": 8,
+          "score": 2,
+          "type": "single_choice",
+          "content": "一个标准的24位真彩色图像中，R、G、B各占多少位？",
+          "options": [
+            { "label": "A", "value": "4位" },
+            { "label": "B", "value": "8位" },
+            { "label": "C", "value": "12位" },
+            { "label": "D", "value": "24位" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "RGB图像中R、G、B各占8位（0-255级），总共24位。"
+        },
+        {
+          "id": "Q_09",
+          "idx": 9,
+          "score": 2,
+          "type": "single_choice",
+          "content": "串口通信（UART）中最基本的三根连接线是：",
+          "options": [
+            { "label": "A", "value": "TXD, RXD, VCC" },
+            { "label": "B", "value": "TXD, RXD, GND" },
+            { "label": "C", "value": "SDA, SCL, GND" },
+            { "label": "D", "value": "VCC, GND, RESET" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "串口通信最基本三线：TXD（发）、RXD（收）、GND（共地线保证电平标准一致）。"
+        },
+        {
+          "id": "Q_10",
+          "idx": 10,
+          "score": 2,
+          "type": "single_choice",
+          "content": "I2C总线属于哪种通信方式？",
+          "options": [
+            { "label": "A", "value": "单工" },
+            { "label": "B", "value": "全双工" },
+            { "label": "C", "value": "半双工" },
+            { "label": "D", "value": "异步通信" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "I2C是半双工（同一时刻只能单向传输），由SDA和SCL两根线组成。"
+        },
+        {
+          "id": "Q_11",
+          "idx": 11,
+          "score": 2,
+          "type": "single_choice",
+          "content": "在视觉边缘检测中，二阶导数通常以什么作为对应边缘的位置？",
+          "options": [
+            { "label": "A", "value": "最大值" },
+            { "label": "B", "value": "最小值" },
+            { "label": "C", "value": "过零点" },
+            { "label": "D", "value": "平均值" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "一阶导数取极大值找边缘，二阶导数通过“过零点”精准定位边缘。"
+        },
+        {
+          "id": "Q_12",
+          "idx": 12,
+          "score": 2,
+          "type": "single_choice",
+          "content": "ROS 2中，实现“发布/订阅”模式、适用于传输即时消息的通信机制是：",
+          "options": [
+            { "label": "A", "value": "话题 (Topic)" },
+            { "label": "B", "value": "服务 (Service)" },
+            { "label": "C", "value": "动作 (Action)" },
+            { "label": "D", "value": "参数 (Parameter)" }
+          ],
+          "correctAnswer": "A",
+          "analysis": "话题（Topic）采用发布/订阅模式，属于单向、异步通信。"
+        },
+        {
+          "id": "Q_13",
+          "idx": 13,
+          "score": 2,
+          "type": "single_choice",
+          "content": "在ROS 2命令行中，查看当前运行的节点列表应使用：",
+          "options": [
+            { "label": "A", "value": "ros2 node info" },
+            { "label": "B", "value": "ros2 run list" },
+            { "label": "C", "value": "ros2 node list" },
+            { "label": "D", "value": "ros2 topic list" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "ROS 2标准命令：ros2 node list。"
+        },
+        {
+          "id": "Q_14",
+          "idx": 14,
+          "score": 2,
+          "type": "single_choice",
+          "content": "机器人导航中的“Where am I？”（我在哪）解决的是什么问题？",
+          "options": [
+            { "label": "A", "value": "路径规划" },
+            { "label": "B", "value": "目标识别" },
+            { "label": "C", "value": "环境认知与定位" },
+            { "label": "D", "value": "运动控制" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "定位（Localization）解决的就是确定机器人当前在地图中的坐标。"
+        },
+        {
+          "id": "Q_15",
+          "idx": 15,
+          "score": 2,
+          "type": "single_choice",
+          "content": "在PID控制中，主要负责消除静态误差的是：",
+          "options": [
+            { "label": "A", "value": "P（比例）" },
+            { "label": "B", "value": "I（积分）" },
+            { "label": "C", "value": "D（微分）" },
+            { "label": "D", "value": "以上都不是" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "I（积分）项的作用是消除稳态误差（即静态误差）。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_02",
+      "title": "二、 多项选择题",
+      "description": "共 5 题，每题 2 分，共 10 分。每题答案必须全对，多选、少选或错选均不得分",
+      "type": "multiple_choice",
+      "questions": [
+        {
+          "id": "Q_16",
+          "idx": 16,
+          "score": 2,
+          "type": "multiple_choice",
+          "content": "智能在机器人上的体现主要包括：",
+          "options": [
+            { "label": "A", "value": "自主性" },
+            { "label": "B", "value": "适应性" },
+            { "label": "C", "value": "交互性" },
+            { "label": "D", "value": "学习性" },
+            { "label": "E", "value": "协同性" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D", "E"],
+          "analysis": "PPT明确列出智能体现为：自主性、适应性、交互性、学习性、协同性。"
+        },
+        {
+          "id": "Q_17",
+          "idx": 17,
+          "score": 2,
+          "type": "multiple_choice",
+          "content": "串口通信（UART）中，两个端口要实现正常通信，必须匹配的参数有：",
+          "options": [
+            { "label": "A", "value": "波特率" },
+            { "label": "B", "value": "数据位" },
+            { "label": "C", "value": "停止位" },
+            { "label": "D", "value": "校验位" },
+            { "label": "E", "value": "线缆颜色" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "串口通信四要素：波特率、数据位、停止位、校验位，必须一致才能通信。"
+        },
+        {
+          "id": "Q_18",
+          "idx": 18,
+          "score": 2,
+          "type": "multiple_choice",
+          "content": "惯性测量单元（IMU）通常集成的传感器包括：",
+          "options": [
+            { "label": "A", "value": "加速度计" },
+            { "label": "B", "value": "陀螺仪" },
+            { "label": "C", "value": "电子磁罗盘" },
+            { "label": "D", "value": "摄像头" },
+            { "label": "E", "value": "超声波" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "IMU集成了多轴加速度计、陀螺仪、电子磁罗盘，用于测量姿态和角速率。"
+        },
+        {
+          "id": "Q_19",
+          "idx": 19,
+          "score": 2,
+          "type": "multiple_choice",
+          "content": "ROS 2系统的核心通信概念包括：",
+          "options": [
+            { "label": "A", "value": "节点 (Node)" },
+            { "label": "B", "value": "话题 (Topic)" },
+            { "label": "C", "value": "服务 (Service)" },
+            { "label": "D", "value": "动作 (Action)" },
+            { "label": "E", "value": "参数 (Parameter)" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D", "E"],
+          "analysis": "这是ROS 2的五大核心通信机制，录音中作为重点提及。"
+        },
+        {
+          "id": "Q_20",
+          "idx": 20,
+          "score": 2,
+          "type": "multiple_choice",
+          "content": "SLAM（即时定位与地图构建）算法的四要素包括：",
+          "options": [
+            { "label": "A", "value": "地图表示" },
+            { "label": "B", "value": "信息感知" },
+            { "label": "C", "value": "数据关联" },
+            { "label": "D", "value": "定位与构图" },
+            { "label": "E", "value": "语音交互" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "SLAM四要素为：地图表示、信息感知、数据关联、定位与构图。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_03",
+      "title": "三、 判断题",
+      "description": "共 10 题，每题 1 分，共 10 分",
+      "type": "true_false",
+      "questions": [
+        {
+          "id": "Q_21",
+          "idx": 21,
+          "score": 1,
+          "type": "true_false",
+          "content": "机器人必须具备人类的外形才能被称为智能机器人。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "False",
+          "analysis": "机器人是功能性的，形状取决于任务，大多数机器人不是人形。"
+        },
+        {
+          "id": "Q_22",
+          "idx": 22,
+          "score": 1,
+          "type": "true_false",
+          "content": "在功率一定的前提下，直流电机的转速越高，扭矩就越小。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "录音提到：功率一定，转速越高，扭矩越小。"
+        },
+        {
+          "id": "Q_23",
+          "idx": 23,
+          "score": 1,
+          "type": "true_false",
+          "content": "激光测距相比超声波测距，更不容易受环境温湿度的影响。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "激光测距聚焦能力强，且光速受环境温湿度影响极小，比超声波稳定。"
+        },
+        {
+          "id": "Q_24",
+          "idx": 24,
+          "score": 1,
+          "type": "true_false",
+          "content": "增量式编码器可以直接输出旋转角度的绝对位置信息，无需计数。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "False",
+          "analysis": "增量式编码器需要通过计算脉冲数来确定位置，断电会丢失位置；绝对式才直接输出位置。"
+        },
+        {
+          "id": "Q_25",
+          "idx": 25,
+          "score": 1,
+          "type": "true_false",
+          "content": "P2P通信模型由于不经过中心服务器转发，因此通信效率通常比C/S模型高。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "P2P模型是分布式，没有中心服务器转发瓶颈，效率更高。"
+        },
+        {
+          "id": "Q_26",
+          "idx": 26,
+          "score": 1,
+          "type": "true_false",
+          "content": "NLP（自然语言处理）的作用是将人的语音实时转化为文字。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "False",
+          "analysis": "语音转文字是ASR，NLP是理解文字背后的含义。"
+        },
+        {
+          "id": "Q_27",
+          "idx": 27,
+          "score": 1,
+          "type": "true_false",
+          "content": "ROS 2的话题通信是一种不可靠的通信方式，不保证接收方一定收到消息。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "话题是单向异步的，发布者不确认接收者是否收到。"
+        },
+        {
+          "id": "Q_28",
+          "idx": 28,
+          "score": 1,
+          "type": "true_false",
+          "content": "rqt 是 ROS 2 的图形化界面工具，可以用来实时查看节点图和修改参数。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "rqt是ROS 2最常用的可视化调试工具。"
+        },
+        {
+          "id": "Q_29",
+          "idx": 29,
+          "score": 1,
+          "type": "true_false",
+          "content": "Theil-Sen（泰尔-森）线性回归比最小二乘法更能容忍异常值的干扰。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "录音提到：Theil-Sen能容忍约29.3%的异常值，而最小二乘法容易受离群点干扰。"
+        },
+        {
+          "id": "Q_30",
+          "idx": 30,
+          "score": 1,
+          "type": "true_false",
+          "content": "SLAM技术要求机器人在完全未知的环境中，边移动边定位边建图。",
+          "options": [
+            { "label": "True", "value": "正确" },
+            { "label": "False", "value": "错误" }
+          ],
+          "correctAnswer": "True",
+          "analysis": "这就是SLAM（即时定位与地图构建）的定义。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_04",
+      "title": "四、 简答题",
+      "description": "共 5 题，每题 10 分，共 50 分。请详细阐述原理和过程，字数过少将影响评分",
+      "type": "subjective",
+      "questions": [
+        {
+          "id": "Q_31",
+          "idx": 31,
+          "score": 10,
+          "type": "short_answer",
+          "content": "比较分析轮式、履带式和足式移动机构的优缺点及适用场景。",
+          "correctAnswer": "轮式：优点是结构简单，运动速度快，能耗低，控制容易；缺点是只能在平整地面运行，越障能力差，无法适应崎岖地形。适用于室内或平整户外环境。\n履带式：优点是接地面积大，牵引力强，越障能力好，适合崎岖地形；缺点是结构复杂，重量大，能耗高，转向时对地面损伤大。适合野外复杂地形。\n足式：优点是适应能力最强，可以在极度粗糙或断裂的地形运动，主动隔振；缺点是控制算法极其复杂，效率不高，机械结构精密且昂贵。适合极端环境、特殊任务。"
+          ,
+          "analysis": "详尽比较三种机构，涵盖结构、性能及应用场景，是考试重点。"
+        },
+        {
+          "id": "Q_32",
+          "idx": 32,
+          "score": 10,
+          "type": "short_answer",
+          "content": "什么是脉冲宽度调制（PWM）？请结合原理说明单片机如何利用PWM控制电动机的速度。",
+          "correctAnswer": "PWM（脉冲宽度调制）是通过快速切换开关，使开关周期内高电平时间与周期时间的比例不同，实现模拟电压输出的一种数字控制方式。单片机IO口只能输出高低电平信号，通过调整占空比，改变电机两端的平均电压，进而控制电机转速。占空比越大，电机平均电压越高，转速越快；反之转速越慢。此方法成本低，效率高，适合数字电路控制电机。"
+          ,
+          "analysis": "考查对PWM定义和应用的理解，需包含原理和控制过程。"
+        },
+        {
+          "id": "Q_33",
+          "idx": 33,
+          "score": 10,
+          "type": "short_answer",
+          "content": "对比说明 ROS 2 中“话题（Topic）”与“服务（Service）”的区别（从可靠性、同步性、通信模型等方面阐述）。",
+          "correctAnswer": "话题（Topic）采用发布/订阅模式，属于单向异步通信，可实现一对多、多对多，适合传感器数据等高频流式信息，但不保证消息必达，可靠性较低。服务（Service）采用请求/响应模式，一对一通信，客户端发送请求后等待服务端响应，是同步通信，可靠性较高，适合命令控制类操作。"
+          ,
+          "analysis": "本题重点考查ROS 2通信机制的理解，需包含多维度对比。"
+        },
+        {
+          "id": "Q_34",
+          "idx": 34,
+          "score": 10,
+          "type": "short_answer",
+          "content": "详细解释 PID 控制算法中 P、I、D 三个项的具体含义及它们在控制过程中分别起到了什么作用？",
+          "correctAnswer": "P（比例）代表当前误差，输出与误差成正比，提供即刻的控制力度，反应速度快。I（积分）代表历史误差的累积，能消除稳态误差，使系统精确达到目标。D（微分）代表误差变化率，预测未来趋势，起阻尼作用，减少超调和振荡，稳定系统。三者结合提高控制精度和稳定性。"
+          ,
+          "analysis": "回答需明确三项含义及其控制作用，体现对PID算法的深入理解。"
+        },
+        {
+          "id": "Q_35",
+          "idx": 35,
+          "score": 10,
+          "type": "short_answer",
+          "content": "请描述智能机器人语音交互闭环的三个关键步骤（ASR、NLP、TTS），并分别解释它们的作用。",
+          "correctAnswer": "1. ASR（自动语音识别）将人类语音信号转化为文本，完成“听见”阶段。2. NLP（自然语言处理）理解文本背后的语义和用户意图，实现“听懂”。3. TTS（文本转语音）将机器生成的文本信息转换为自然语音，实现“回应”，完成交互闭环。三步骤协同工作，实现自然流畅的人机语音交互。"
+          ,
+          "analysis": "要求对语音交互的完整流程和作用都有准确描述，突出闭环逻辑。"
+        }
+      ]
+    }
+  ]
+}

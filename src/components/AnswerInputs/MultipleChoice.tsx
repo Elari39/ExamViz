@@ -1,5 +1,6 @@
 import { Checkbox } from 'antd';
 import type { Question } from '../../types/exam';
+import MarkdownContent from '../MarkdownContent';
 
 interface Props {
   question: Question;
@@ -33,7 +34,8 @@ export default function MultipleChoice({ question, value = [], onChange, disable
             `}
           >
             <span className="font-medium text-gray-700">
-              {option.label}. {option.value}
+              <span className="mr-1">{option.label}.</span>
+              <MarkdownContent content={option.value} enableMath={question.isLatex} inline />
             </span>
           </Checkbox>
         ))}

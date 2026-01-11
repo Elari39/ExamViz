@@ -1,5 +1,6 @@
 import { Radio } from 'antd';
 import type { Question } from '../../types/exam';
+import MarkdownContent from '../MarkdownContent';
 
 interface Props {
   question: Question;
@@ -36,7 +37,7 @@ export default function TrueFalse({ question, value, onChange, disabled }: Props
             `}
           >
             <span className="font-medium text-gray-700 text-lg">
-              {option.value}
+              <MarkdownContent content={option.value} enableMath={question.isLatex} inline />
             </span>
           </Radio>
         ))}
