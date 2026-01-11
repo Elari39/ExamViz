@@ -48,11 +48,19 @@ export interface ExamPaper {
   sections: Section[];
 }
 
+export interface AiGrade {
+  score: number;
+  feedback?: string;
+  model?: string;
+  gradedAt?: string;
+}
+
 export interface UserAnswer {
   questionId: string;
   answer: string | string[];
   isCorrect?: boolean;
   score?: number;
+  aiGrade?: AiGrade;
 }
 
 export type ViewMode = 'full' | 'single';

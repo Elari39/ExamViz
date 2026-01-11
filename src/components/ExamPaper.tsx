@@ -8,7 +8,7 @@ import QuestionCard from './QuestionCard';
 import ScorePanel from './ScorePanel';
 import AnswerSheet from './AnswerSheet';
 import Navigation from './Navigation';
-import ML1 from '../assets/ML1.json';
+import ML1 from '../assets/demo.json';
 import { calculateExamStats } from '../utils/grading';
 import { clearPersistedExamPaper, loadPersistedExamPaper, savePersistedExamPaper } from '../utils/persistence';
 import { assertExamPaper, ExamPaperValidationError } from '../utils/validateExamPaper';
@@ -26,6 +26,7 @@ export default function ExamPaper() {
     currentSectionIndex,
     currentQuestionIndex,
     answeredCount,
+    submitted,
   } = useExamStore();
 
   const [answerSheetOpen, setAnswerSheetOpen] = useState(false);
@@ -110,11 +111,17 @@ export default function ExamPaper() {
                     自动得分
                   </Text>
                   <div className="text-base font-semibold text-blue-600 tabular-nums">
-                    {stats.currentScore}
-                    <span className="text-xs font-normal text-gray-500">
-                      {' '}
-                      / {stats.autoTotalScore}
-                    </span>
+                    {submitted || viewMode === 'full' ? (
+                      <>
+                        {stats.currentScore}
+                        <span className="text-xs font-normal text-gray-500">
+                          {' '}
+                          / {stats.autoTotalScore}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm font-semibold text-gray-500">提交后显示</span>
+                    )}
                   </div>
                 </div>
 

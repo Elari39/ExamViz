@@ -30,8 +30,23 @@ export const isAutoGradableType = (type: QuestionType): boolean => {
   return type !== 'short_answer' && type !== 'calculation';
 };
 
-export const gradeQuestion = (question: Question, answer: unknown): GradeResult => {
+const clampScore = (score: number, maxScore: number) => {
+  if (!Number.isFinite(score)) return 0;
+  if (score < 0) return 0;
+  if (score > maxScore) return maxScore;
+  return Math.round(score * 100) / 100;
+};
+
+const scoreToState = (score: number, maxScore: number): GradeState => {
+  if (maxScore <= 0) return 'correct';
+  if (score <= 0) return 'wrong';
+  if (score >= maxScore) return 'correct';
+  return 'partial';
+};
+
+export const gradeQuestion = (question: Question, userAnswer?: UserAnswer): GradeResult => {
   const maxScore = question.score;
+  const answer = userAnswer?.answer;
 
   if (isEmptyAnswer(answer)) {
     return { state: 'unanswered', score: 0, maxScore };
@@ -39,8 +54,14 @@ export const gradeQuestion = (question: Question, answer: unknown): GradeResult 
 
   switch (question.type) {
     case 'short_answer':
-    case 'calculation':
+    case 'calculation': {
+      const aiScore = userAnswer?.aiGrade?.score;
+      if (typeof aiScore === 'number') {
+        const score = clampScore(aiScore, maxScore);
+        return { state: scoreToState(score, maxScore), score, maxScore };
+      }
       return { state: 'pending', score: 0, maxScore };
+    }
     case 'single_choice':
     case 'true_false': {
       const userVal = normalizeKey(String(answer));
@@ -96,7 +117,14 @@ export const gradeQuestion = (question: Question, answer: unknown): GradeResult 
     }
     case 'coding': {
       const correctCode = String(question.correctAnswer ?? '').trim();
-      if (correctCode === '') return { state: 'pending', score: 0, maxScore };
+      if (correctCode === '') {
+        const aiScore = userAnswer?.aiGrade?.score;
+        if (typeof aiScore === 'number') {
+          const score = clampScore(aiScore, maxScore);
+          return { state: scoreToState(score, maxScore), score, maxScore };
+        }
+        return { state: 'pending', score: 0, maxScore };
+      }
 
       const userCode = String(answer ?? '');
       const isCorrect = normalizeCode(userCode) === normalizeCode(correctCode);
@@ -125,10 +153,9 @@ export const calculateExamStats = (
   let pendingQuestions = 0;
 
   for (const question of questions) {
-    if (isAutoGradableType(question.type)) autoTotalScore += question.score;
-    else pendingQuestions++;
-
-    const grade = gradeQuestion(question, answers[question.id]?.answer);
+    const grade = gradeQuestion(question, answers[question.id]);
+    if (grade.state === 'pending') pendingQuestions++;
+    else autoTotalScore += question.score;
     currentScore += grade.score;
   }
 
@@ -142,4 +169,3 @@ export const calculateExamStats = (
     pendingQuestions,
   };
 };
-

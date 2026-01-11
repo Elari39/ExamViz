@@ -1,0 +1,638 @@
+{
+  "examMeta": {
+    "id": "ML_FINAL_SIM_2024",
+    "title": "《机器学习》期末考试模拟试卷",
+    "totalScore": 100,
+    "duration": 120,
+    "createTime": "2024-06-20T10:00:00Z",
+    "description": "本试卷考察范围涵盖机器学习基本概念、算法特性（如KNN、逻辑回归、SVM、决策树、聚类等）、模型评估、深度学习基础及Scikit-learn编程实战。"
+  },
+  "sections": [
+    {
+      "id": "SEC_01",
+      "title": "一、单项选择题",
+      "description": "共15题，每题1分，共15分。",
+      "type": "single_choice",
+      "questions": [
+        {
+          "id": "Q_1_01",
+          "idx": 1,
+          "score": 1,
+          "type": "single_choice",
+          "content": "下列哪项属于无监督学习的任务？",
+          "options": [
+            { "label": "A", "value": "预测房价 (Regression)" },
+            { "label": "B", "value": "垃圾邮件分类 (Classification)" },
+            { "label": "C", "value": "客户群体划分 (Clustering)" },
+            { "label": "D", "value": "人脸识别 (Recognition)" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "A、B、D均属于监督学习，有明确的标签。C属于无监督学习，没有预先定义的标签，算法需要自己发现数据内部的结构。"
+        },
+        {
+          "id": "Q_1_02",
+          "idx": 2,
+          "score": 1,
+          "type": "single_choice",
+          "content": "在K-近邻算法 (KNN) 中，决定模型复杂度和分类结果的关键因素是？",
+          "options": [
+            { "label": "A", "value": "样本特征数" },
+            { "label": "B", "value": "K值的选择" },
+            { "label": "C", "value": "距离度量方式" },
+            { "label": "D", "value": "训练集的顺序" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "K值较小模型复杂，容易过拟合；K值较大模型简单，容易欠拟合。"
+        },
+        {
+          "id": "Q_1_03",
+          "idx": 3,
+          "score": 1,
+          "type": "single_choice",
+          "content": "关于逻辑回归 (Logistic Regression)，下列说法正确的是？",
+          "options": [
+            { "label": "A", "value": "它主要用于解决回归预测问题" },
+            { "label": "B", "value": "它使用Softmax或Sigmoid函数将输出映射到[0,1]区间" },
+            { "label": "C", "value": "它不需要计算损失函数" },
+            { "label": "D", "value": "它的决策边界总是非线性的" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "逻辑回归本质是分类算法，使用Sigmoid函数将线性输出映射为概率。其决策边界是线性的。"
+        },
+        {
+          "id": "Q_1_04",
+          "idx": 4,
+          "score": 1,
+          "type": "single_choice",
+          "content": "在支持向量机 (SVM) 中，若数据线性不可分，通常采用什么方法将数据映射到高维空间？",
+          "options": [
+            { "label": "A", "value": "增加正则化项" },
+            { "label": "B", "value": "使用核函数 (Kernel Function)" },
+            { "label": "C", "value": "减少训练样本" },
+            { "label": "D", "value": "使用硬间隔 (Hard Margin)" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "SVM通过核技巧（如RBF核）将低维不可分数据映射到高维空间，使其线性可分。"
+        },
+        {
+          "id": "Q_1_05",
+          "idx": 5,
+          "score": 1,
+          "type": "single_choice",
+          "content": "下列哪种算法被称为“懒惰学习” (Lazy Learning)，即没有显式的训练过程？",
+          "options": [
+            { "label": "A", "value": "决策树" },
+            { "label": "B", "value": "逻辑回归" },
+            { "label": "C", "value": "KNN" },
+            { "label": "D", "value": "神经网络" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "KNN平时只存储数据，直到有新样本进来需要预测时才计算距离，没有显式的训练参数更新过程。"
+        },
+        {
+          "id": "Q_1_06",
+          "idx": 6,
+          "score": 1,
+          "type": "single_choice",
+          "content": "下列关于过拟合 (Overfitting) 的描述，正确的是？",
+          "options": [
+            { "label": "A", "value": "模型在训练集和测试集上表现都很好" },
+            { "label": "B", "value": "模型在训练集上表现很差，测试集上表现也差" },
+            { "label": "C", "value": "模型在训练集上表现很好，但在测试集上表现很差" },
+            { "label": "D", "value": "模型过于简单，无法捕捉数据的特征" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "过拟合的典型特征是模型死记硬背了训练数据（包括噪声），导致泛化能力差。"
+        },
+        {
+          "id": "Q_1_07",
+          "idx": 7,
+          "score": 1,
+          "type": "single_choice",
+          "content": "在线性回归评估中，取值范围在 [0, 1] 之间，且越接近 1 表示模型拟合越好的是？",
+          "options": [
+            { "label": "A", "value": "MSE (均方误差)" },
+            { "label": "B", "value": "RMSE (均方根误差)" },
+            { "label": "C", "value": "MAE (平均绝对误差)" },
+            { "label": "D", "value": "R方 (R-squared)" }
+          ],
+          "correctAnswer": "D",
+          "analysis": "MSE、RMSE、MAE是误差值，越小越好；R方衡量拟合优度，1表示完美拟合。"
+        },
+        {
+          "id": "Q_1_08",
+          "idx": 8,
+          "score": 1,
+          "type": "single_choice",
+          "content": "决策树算法中，ID3 算法使用哪种指标进行特征选择？",
+          "options": [
+            { "label": "A", "value": "信息增益 (Information Gain)" },
+            { "label": "B", "value": "信息增益率 (Gain Ratio)" },
+            { "label": "C", "value": "基尼指数 (Gini Index)" },
+            { "label": "D", "value": "均方误差" }
+          ],
+          "correctAnswer": "A",
+          "analysis": "ID3使用信息增益；C4.5使用信息增益率；CART使用基尼指数（分类）或MSE（回归）。"
+        },
+        {
+          "id": "Q_1_09",
+          "idx": 9,
+          "score": 1,
+          "type": "single_choice",
+          "content": "关于 K-Means 聚类，以下说法错误的是？",
+          "options": [
+            { "label": "A", "value": "需要预先指定簇的数量 K" },
+            { "label": "B", "value": "对初始质心的选择敏感" },
+            { "label": "C", "value": "对异常值不敏感" },
+            { "label": "D", "value": "擅长处理球形分布的数据" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "K-Means对异常值非常敏感，因为均值计算会被拉向异常值。"
+        },
+        {
+          "id": "Q_1_10",
+          "idx": 10,
+          "score": 1,
+          "type": "single_choice",
+          "content": "朴素贝叶斯 (Naive Bayes) 算法中的“朴素”是指？",
+          "options": [
+            { "label": "A", "value": "算法逻辑简单" },
+            { "label": "B", "value": "假设所有特征之间相互独立" },
+            { "label": "C", "value": "不需要训练参数" },
+            { "label": "D", "value": "计算速度快" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "“朴素”来源于假设特征之间条件独立，这在现实中很难满足，但简化了计算。"
+        },
+        {
+          "id": "Q_1_11",
+          "idx": 11,
+          "score": 1,
+          "type": "single_choice",
+          "content": "在神经网络中，为了解决异或 (XOR) 等线性不可分问题，至少需要？",
+          "options": [
+            { "label": "A", "value": "一个输入层" },
+            { "label": "B", "value": "一个隐藏层" },
+            { "label": "C", "value": "一个输出层" },
+            { "label": "D", "value": "两个输出节点" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "单层感知机无法解决XOR问题，必须引入至少一个隐藏层和非线性激活函数。"
+        },
+        {
+          "id": "Q_1_12",
+          "idx": 12,
+          "score": 1,
+          "type": "single_choice",
+          "content": "Lasso回归与岭回归 (Ridge) 的主要区别在于 Lasso 可以？",
+          "options": [
+            { "label": "A", "value": "防止过拟合" },
+            { "label": "B", "value": "处理非线性数据" },
+            { "label": "C", "value": "将某些系数压缩为0，实现特征选择" },
+            { "label": "D", "value": "提高计算速度" }
+          ],
+          "correctAnswer": "C",
+          "analysis": "Lasso (L1正则化) 具有稀疏性，会将不重要的特征系数压缩为0。"
+        },
+        {
+          "id": "Q_1_13",
+          "idx": 13,
+          "score": 1,
+          "type": "single_choice",
+          "content": "在集成学习中，随机森林 (Random Forest) 属于哪种策略？",
+          "options": [
+            { "label": "A", "value": "Boosting" },
+            { "label": "B", "value": "Bagging" },
+            { "label": "C", "value": "Stacking" },
+            { "label": "D", "value": "Clustering" }
+          ],
+          "correctAnswer": "B",
+          "analysis": "随机森林使用Bagging策略，并行训练多棵树。"
+        },
+        {
+          "id": "Q_1_14",
+          "idx": 14,
+          "score": 1,
+          "type": "single_choice",
+          "content": "下列哪个库是 Python 中最常用的传统机器学习库？",
+          "options": [
+            { "label": "A", "value": "Scikit-learn" },
+            { "label": "B", "value": "PyTorch" },
+            { "label": "C", "value": "TensorFlow" },
+            { "label": "D", "value": "Keras" }
+          ],
+          "correctAnswer": "A",
+          "analysis": "Scikit-learn是传统机器学习（SVM, RF, LR等）的首选库；其他是深度学习框架。"
+        },
+        {
+          "id": "Q_1_15",
+          "idx": 15,
+          "score": 1,
+          "type": "single_choice",
+          "content": "使用拉普拉斯平滑 (Laplace Smoothing) 的主要目的是？",
+          "options": [
+            { "label": "A", "value": "防止因某属性概率为0导致整体概率计算为0" },
+            { "label": "B", "value": "增加模型的非线性能力" },
+            { "label": "C", "value": "减少特征维度" },
+            { "label": "D", "value": "提高计算精度" }
+          ],
+          "correctAnswer": "A",
+          "analysis": "在朴素贝叶斯中，用于解决零概率问题。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_02",
+      "title": "二、多项选择题",
+      "description": "共15题，每题1分，共15分。",
+      "type": "multiple_choice",
+      "questions": [
+        {
+          "id": "Q_2_01",
+          "idx": 1,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "机器学习的四大基本任务包括？",
+          "options": [
+            { "label": "A", "value": "分类 (Classification)" },
+            { "label": "B", "value": "聚类 (Clustering)" },
+            { "label": "C", "value": "回归 (Regression)" },
+            { "label": "D", "value": "降维 (Dimensionality Reduction)" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "这四项均属于机器学习的核心任务。"
+        },
+        {
+          "id": "Q_2_02",
+          "idx": 2,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "解决过拟合 (Overfitting) 的常用方法有？",
+          "options": [
+            { "label": "A", "value": "增加训练数据量" },
+            { "label": "B", "value": "引入正则化 (L1/L2)" },
+            { "label": "C", "value": "减少特征数量/特征选择" },
+            { "label": "D", "value": "使用 Dropout (在神经网络中)" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "A增加数据是根本；B、D限制模型复杂度；C降低特征维度。"
+        },
+        {
+          "id": "Q_2_03",
+          "idx": 3,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "下列属于集成学习 (Ensemble Learning) 常用算法的有？",
+          "options": [
+            { "label": "A", "value": "AdaBoost" },
+            { "label": "B", "value": "XGBoost" },
+            { "label": "C", "value": "随机森林 (Random Forest)" },
+            { "label": "D", "value": "线性回归" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "线性回归是单一的基础模型，不属于集成学习。"
+        },
+        {
+          "id": "Q_2_04",
+          "idx": 4,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "评价分类模型性能的常见指标包括？",
+          "options": [
+            { "label": "A", "value": "准确率 (Accuracy)" },
+            { "label": "B", "value": "精确率 (Precision)" },
+            { "label": "C", "value": "召回率 (Recall)" },
+            { "label": "D", "value": "均方误差 (MSE)" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "MSE是回归任务的指标。"
+        },
+        {
+          "id": "Q_2_05",
+          "idx": 5,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "深度学习常用的框架包括？",
+          "options": [
+            { "label": "A", "value": "TensorFlow" },
+            { "label": "B", "value": "PyTorch" },
+            { "label": "C", "value": "Keras" },
+            { "label": "D", "value": "Pandas" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "Pandas是数据分析处理库。"
+        },
+        {
+          "id": "Q_2_06",
+          "idx": 6,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "关于决策树的不同变体，对应关系正确的是？",
+          "options": [
+            { "label": "A", "value": "ID3 —— 信息增益" },
+            { "label": "B", "value": "C4.5 —— 信息增益率" },
+            { "label": "C", "value": "CART —— 基尼指数" },
+            { "label": "D", "value": "CART —— 欧氏距离" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "CART不使用欧氏距离。"
+        },
+        {
+          "id": "Q_2_07",
+          "idx": 7,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "数据预处理通常包含哪些步骤？",
+          "options": [
+            { "label": "A", "value": "数据清洗 (缺失值处理)" },
+            { "label": "B", "value": "特征标准化/归一化" },
+            { "label": "C", "value": "数据集划分 (训练集/测试集)" },
+            { "label": "D", "value": "建立模型" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "建立模型不属于预处理步骤。"
+        },
+        {
+          "id": "Q_2_08",
+          "idx": 8,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "下列哪些是有监督学习的典型算法？",
+          "options": [
+            { "label": "A", "value": "支持向量机 (SVM)" },
+            { "label": "B", "value": "朴素贝叶斯" },
+            { "label": "C", "value": "K-Means" },
+            { "label": "D", "value": "决策树" }
+          ],
+          "correctAnswer": ["A", "B", "D"],
+          "analysis": "K-Means属于无监督聚类算法。"
+        },
+        {
+          "id": "Q_2_09",
+          "idx": 9,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "混淆矩阵 (Confusion Matrix) 包含的基础元素有？",
+          "options": [
+            { "label": "A", "value": "TP (真阳性)" },
+            { "label": "B", "value": "FP (假阳性)" },
+            { "label": "C", "value": "TN (真阴性)" },
+            { "label": "D", "value": "FN (假阴性)" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "混淆矩阵由这四个基本元素构成。"
+        },
+        {
+          "id": "Q_2_10",
+          "idx": 10,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "神经网络的反向传播 (BP) 算法主要包含哪些阶段？",
+          "options": [
+            { "label": "A", "value": "数据预处理" },
+            { "label": "B", "value": "前向传播计算输出" },
+            { "label": "C", "value": "计算误差" },
+            { "label": "D", "value": "反向传播更新权重" }
+          ],
+          "correctAnswer": ["B", "C", "D"],
+          "analysis": "数据预处理在BP算法执行前进行。"
+        },
+        {
+          "id": "Q_2_11",
+          "idx": 11,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "关于特征选择，下列说法正确的有？",
+          "options": [
+            { "label": "A", "value": "决策树可以根据特征重要性排序" },
+            { "label": "B", "value": "岭回归可以实现特征系数为0" },
+            { "label": "C", "value": "Lasso回归可以用于特征选择" },
+            { "label": "D", "value": "递归特征消除 (RFE) 是一种常用方法" }
+          ],
+          "correctAnswer": ["A", "C", "D"],
+          "analysis": "岭回归(Ridge)只能使系数接近0，很难绝对为0，Lasso(L1)可以。"
+        },
+        {
+          "id": "Q_2_12",
+          "idx": 12,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "聚类算法 K-Means 的缺点包括？",
+          "options": [
+            { "label": "A", "value": "需要预先确定 K 值" },
+            { "label": "B", "value": "容易陷入局部最优" },
+            { "label": "C", "value": "对噪声和异常值敏感" },
+            { "label": "D", "value": "无法处理非凸集（如环形）数据" }
+          ],
+          "correctAnswer": ["A", "B", "C", "D"],
+          "analysis": "这些均是K-Means的已知缺点。"
+        },
+        {
+          "id": "Q_2_13",
+          "idx": 13,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "在图像识别训练（如猫狗分类）中，为了提高模型泛化能力，老师建议？",
+          "options": [
+            { "label": "A", "value": "仅使用猫和狗的图片" },
+            { "label": "B", "value": "加入负样本 (如房子、森林)" },
+            { "label": "C", "value": "进行数据增强 (Data Augmentation)" },
+            { "label": "D", "value": "减少训练轮数" }
+          ],
+          "correctAnswer": ["B", "C"],
+          "analysis": "加入负样本和数据增强能有效提高泛化能力。"
+        },
+        {
+          "id": "Q_2_14",
+          "idx": 14,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "逻辑回归的损失函数通常不使用均方误差 (MSE)，而是使用？",
+          "options": [
+            { "label": "A", "value": "交叉熵损失 (Cross Entropy)" },
+            { "label": "B", "value": "对数似然损失" },
+            { "label": "C", "value": "0-1损失" },
+            { "label": "D", "value": "欧氏距离" }
+          ],
+          "correctAnswer": ["A", "B"],
+          "analysis": "交叉熵和对数似然损失在逻辑回归中本质是一样的，且是凸函数，利于优化。"
+        },
+        {
+          "id": "Q_2_15",
+          "idx": 15,
+          "score": 1,
+          "type": "multiple_choice",
+          "content": "模型调优中常用的技术包括？",
+          "options": [
+            { "label": "A", "value": "网格搜索 (Grid Search)" },
+            { "label": "B", "value": "K-折交叉验证" },
+            { "label": "C", "value": "提前终止 (Early Stopping)" },
+            { "label": "D", "value": "随机猜测" }
+          ],
+          "correctAnswer": ["A", "B", "C"],
+          "analysis": "前三者是标准调优手段。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_03",
+      "title": "三、名词解释",
+      "description": "共5题，每题2分，共10分。",
+      "type": "subjective",
+      "questions": [
+        {
+          "id": "Q_3_01",
+          "idx": 1,
+          "score": 2,
+          "type": "short_answer",
+          "content": "超参数 (Hyperparameters)",
+          "correctAnswer": "指在机器学习模型训练之前需要人工设定的参数，而不是通过训练数据自动学习得到的参数。例如：KNN中的K值、神经网络的层数和学习率、正则化系数λ等。",
+          "analysis": "重点在于“人工设定”和“非自动学习”。"
+        },
+        {
+          "id": "Q_3_02",
+          "idx": 2,
+          "score": 2,
+          "type": "short_answer",
+          "content": "正则化 (Regularization)",
+          "correctAnswer": "一种为了防止模型过拟合的技术。通过在损失函数中增加一个惩罚项（如L1或L2范数），限制模型参数的大小或复杂度，使模型在保持预测能力的同时更加平滑、简单，提高泛化能力。",
+          "analysis": "核心作用是防止过拟合，手段是增加惩罚项。"
+        },
+        {
+          "id": "Q_3_03",
+          "idx": 3,
+          "score": 2,
+          "type": "short_answer",
+          "content": "BP算法流程 (Back Propagation Algorithm Process)",
+          "correctAnswer": "即反向传播算法。其核心流程是：先进行前向传播计算预测输出；然后根据预测值与真实值的差计算损失 (Loss)；最后利用链式法则从输出层向输入层逐层计算梯度的过程，并利用梯度下降法更新网络权重。",
+          "analysis": "关键词：前向传播、计算误差、链式法则、反向更新。"
+        },
+        {
+          "id": "Q_3_04",
+          "idx": 4,
+          "score": 2,
+          "type": "short_answer",
+          "content": "K-折交叉验证 (K-fold Cross Validation)",
+          "correctAnswer": "一种评估模型性能的方法。将原始数据集随机分成 K 个互斥的子集（折）。每次选择其中 1 个子集作为测试集，剩余 K-1 个作为训练集，重复 K 次训练和测试，最后取 K 次评估结果的平均值作为模型的最终性能指标。",
+          "analysis": "重点描述划分方式和循环评估取平均的过程。"
+        },
+        {
+          "id": "Q_3_05",
+          "idx": 5,
+          "score": 2,
+          "type": "short_answer",
+          "content": "Softmax 函数",
+          "correctAnswer": "通常用于多分类问题的输出层激活函数。它将多个神经元的输出数值转换为概率分布，保证所有输出节点的概率值在 [0, 1] 之间且和为 1，从而确定样本属于某一类的概率。",
+          "analysis": "功能是将数值转为概率，且和为1。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_04",
+      "title": "四、简答题",
+      "description": "共5题，每题4分，共20分。",
+      "type": "subjective",
+      "questions": [
+        {
+          "id": "Q_4_01",
+          "idx": 1,
+          "score": 4,
+          "type": "short_answer",
+          "content": "监督学习与无监督学习的区别。请简述两者的定义，并各列举两个典型的算法或任务。",
+          "correctAnswer": "1. 定义区别：监督学习的训练数据包含输入特征和对应的标签 (Label)，模型学习输入到输出的映射；无监督学习的训练数据没有标签，模型旨在发现数据内部的结构或规律。\n2. 典型算法：\n   - 监督学习：线性回归、SVM、决策树。\n   - 无监督学习：K-Means聚类、PCA降维。",
+          "analysis": "考察对有无标签这一核心区别的理解。"
+        },
+        {
+          "id": "Q_4_02",
+          "idx": 2,
+          "score": 4,
+          "type": "short_answer",
+          "content": "过拟合 (Overfitting) 及其解决方案。什么是过拟合？请从数据层面、模型层面和训练层面各列举一种解决方案。",
+          "correctAnswer": "定义：模型在训练集上表现极好（记住了噪声），但在测试集上表现很差，泛化能力低。\n解决方案：\n- 数据层面：增加训练数据量、数据增强。\n- 模型层面：降低模型复杂度（减少层数/深度）、正则化 (L1/L2)。\n- 训练层面：提前终止 (Early Stopping)、Dropout。",
+          "analysis": "需要覆盖定义及三个维度的解决方案。"
+        },
+        {
+          "id": "Q_4_03",
+          "idx": 3,
+          "score": 4,
+          "type": "short_answer",
+          "content": "集成学习 (Ensemble Learning) 的策略。简述集成学习的核心思想，并说明 Bagging 和 Boosting 的主要区别。",
+          "correctAnswer": "核心思想：结合多个弱分类器的预测结果，通过投票或平均，获得比单一模型更好的性能。\n区别：\n- Bagging (如随机森林)：基模型相互独立，并行生成，主要降低方差。\n- Boosting (如AdaBoost)：基模型相互依赖，串行生成（修正前者的错误），主要降低偏差。",
+          "analysis": "重点在于并行/串行以及降低方差/偏差的区别。"
+        },
+        {
+          "id": "Q_4_04",
+          "idx": 4,
+          "score": 4,
+          "type": "short_answer",
+          "content": "决策树 (Decision Tree) 的构建与度量。请简述决策树的优点，并列出 ID3、C4.5 和 CART 三种算法分别使用的划分度量指标。",
+          "correctAnswer": "优点：可解释性强、不需要数据标准化、能处理分类和回归。\n度量指标：\n- ID3：信息增益 (Information Gain)\n- C4.5：信息增益率 (Gain Ratio)\n- CART：基尼指数 (Gini Index)",
+          "analysis": "准确对应三种算法的指标是关键。"
+        },
+        {
+          "id": "Q_4_05",
+          "idx": 5,
+          "score": 4,
+          "type": "short_answer",
+          "content": "负样本 (Negative Samples) 的重要性。在训练分类器时，为什么强调不仅要输入目标类别的图片，还要加入非目标类的图片？",
+          "correctAnswer": "如果只输入目标类（如猫狗），模型无法学习决策边界，可能会认为“只要是图像就是目标”。加入负样本（背景类）能帮助模型学会区分“对象”和“非对象”，收缩决策边界，降低误报率 (False Positive)，提高泛化能力。",
+          "analysis": "核心在于确立决策边界，防止模型盲目判定。"
+        }
+      ]
+    },
+    {
+      "id": "SEC_05",
+      "title": "五、计算题",
+      "description": "共3题，每题10分，共30分。",
+      "type": "subjective",
+      "questions": [
+        {
+          "id": "Q_5_01",
+          "idx": 1,
+          "score": 10,
+          "type": "calculation",
+          "content": "假设某二分类任务中，共有样本 500 个。\n- 实际为正类 (Positive) 的样本中：200 个被预测为正 (TP)，80 个被预测为负 (FN)。\n- 实际为负类 (Negative) 的样本中：100 个被预测为正 (FP)，120 个被预测为负 (TN)。\n请计算下列指标（需写出公式和计算过程）：\n(1) 准确率 (Accuracy)\n(2) 精确率 (Precision)\n(3) 召回率 (Recall)\n(4) F1分数 (F1-Score)",
+          "correctAnswer": "(1) Accuracy = (TP+TN)/Total = (200+120)/500 = 0.64 (64%)\n(2) Precision = TP/(TP+FP) = 200/(200+100) ≈ 0.67 (66.7%)\n(3) Recall = TP/(TP+FN) = 200/(200+80) ≈ 0.71 (71.4%)\n(4) F1 = 2*P*R/(P+R) ≈ 0.69",
+          "analysis": "考察混淆矩阵基础指标计算。"
+        },
+        {
+          "id": "Q_5_02",
+          "idx": 2,
+          "score": 10,
+          "type": "calculation",
+          "content": "已知变量之间的依赖关系图为：A -> C <- B（即 A 和 B 共同影响 C）。\n请写出计算联合概率 P(A, B, C) 的公式。若给定 P(A)=0.2, P(B)=0.3, P(C|A,B)=0.8，求 P(A, B, C) 的值。",
+          "correctAnswer": "公式：P(A, B, C) = P(A) * P(B) * P(C|A, B)\n计算：0.2 * 0.3 * 0.8 = 0.048",
+          "analysis": "基于贝叶斯网络的局部马尔可夫性质，A和B独立，C依赖A和B。"
+        },
+        {
+          "id": "Q_5_03",
+          "idx": 3,
+          "score": 10,
+          "type": "calculation",
+          "content": "已知线性回归模型公式为 $\\hat{y} = \\omega_1 x_1 + \\omega_2 x_2 + b$。\n当前参数初始值为：$\\omega_1 = 0.3, \\omega_2 = 0.4, b = 0$。\n给定样本1：特征 $(2.0, 3.0)$，真实标签 $y = 4.0$。学习率 $\\eta = 0.01$。\n请计算：\n(1) 该样本的预测值 $\\hat{y}$。\n(2) 该样本的均方误差 (MSE)。\n(3) 基于该样本，计算 $\\omega_1$ 的梯度。\n(4) 进行一次梯度下降更新后，$\\omega_1$ 的新值。",
+          "correctAnswer": "(1) 预测值 = 0.3*2 + 0.4*3 + 0 = 1.8\n(2) MSE = (1.8 - 4.0)^2 = 4.84\n(3) 梯度(w1) = 2 * (1.8 - 4.0) * 2.0 = -8.8\n(4) w1_new = 0.3 - 0.01 * (-8.8) = 0.388",
+          "analysis": "考察线性回归的前向计算及梯度的反向更新。",
+          "isLatex": true
+        }
+      ]
+    },
+    {
+      "id": "SEC_06",
+      "title": "六、代码填空与分析",
+      "description": "共1题，共10分。请在代码横线上填入正确的 Scikit-learn 函数或方法名。",
+      "type": "fill_in_blank",
+      "questions": [
+        {
+          "id": "Q_6_01",
+          "idx": 1,
+          "score": 10,
+          "type": "fill_in_blank",
+          "content": "import pandas as pd\nfrom sklearn.model_selection import ________(1)________\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\n\n# 读取数据\ndata = pd.read_csv('data.csv')\nX = data[['feature1', 'feature2']]\ny = data['label']\n\n# 划分训练集和测试集\nX_train, X_test, y_train, y_test = ________(2)________(X, y, test_size=0.2, random_state=42)\n\n# 构建模型\nmodel = ________(3)________()\n\n# 训练模型\nmodel.________(4)________(X_train, y_train)\n\n# 模型预测\ny_pred = model.________(5)________(X_test)\n\nprint('MSE:', mean_squared_error(y_test, y_pred))",
+          "correctAnswer": ["train_test_split", "train_test_split", "LinearRegression", "fit", "predict"],
+          "analysis": "(1)(2) train_test_split 用于划分数据集；(3) LinearRegression 实例化模型；(4) fit 用于训练；(5) predict 用于预测。",
+          "codeLanguage": "python"
+        }
+      ]
+    }
+  ]
+}

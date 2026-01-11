@@ -1,4 +1,4 @@
-import { Card, Progress, Space, Button, Typography } from 'antd';
+import { Card, Progress, Space, Button, Typography, message } from 'antd';
 import { useMemo } from 'react';
 import { useExamStore } from '../store/examStore';
 import { calculateExamStats } from '../utils/grading';
@@ -6,7 +6,7 @@ import { calculateExamStats } from '../utils/grading';
 const { Text } = Typography;
 
 export default function ScorePanel() {
-  const { examPaper, answers, submitted, answeredCount, submit, reset } = useExamStore();
+  const { examPaper, answers, submitted, answeredCount, submit, reset, gradeWithAI, aiGradingStatus } = useExamStore();
 
   const stats = useMemo(() => {
     if (!examPaper) return null;
@@ -15,6 +15,7 @@ export default function ScorePanel() {
 
   if (!examPaper || !stats) return null;
   const answeredPercentage = Math.round((answeredCount / stats.totalQuestions) * 100);
+  const hasAiGraded = Object.values(answers).some((a) => a.aiGrade);
 
   return (
     <Card className="!rounded-xl !border-gray-200 shadow-sm sticky top-20">
@@ -27,7 +28,7 @@ export default function ScorePanel() {
           </div>
           {stats.pendingQuestions > 0 && (
             <div className="mt-1 text-xs text-gray-500">
-              可自动判分 {stats.autoTotalScore} 分 · 主观题 {stats.pendingQuestions} 题待评分
+              可自动判分 {stats.autoTotalScore} 分 · {stats.pendingQuestions} 题待评分
             </div>
           )}
         </div>
@@ -47,6 +48,26 @@ export default function ScorePanel() {
                 className="mt-2"
               />
             </div>
+            {(stats.pendingQuestions > 0 || hasAiGraded) && (
+              <Button
+                onClick={async () => {
+                  try {
+                    const regrade = stats.pendingQuestions === 0;
+                    const { graded } = await gradeWithAI({ regrade });
+                    if (graded <= 0) message.info('没有需要 AI 批改的题目');
+                    else message.success(`AI 已批改 ${graded} 题`);
+                  } catch (err) {
+                    const msg = err instanceof Error ? err.message : 'AI 批改失败';
+                    message.error(msg);
+                  }
+                }}
+                loading={aiGradingStatus === 'grading'}
+                className="!rounded-lg"
+                block
+              >
+                {stats.pendingQuestions > 0 ? 'AI 批改待评分题' : 'AI 重新批改'}
+              </Button>
+            )}
             <Button
               type="primary"
               onClick={reset}

@@ -64,8 +64,41 @@ pnpm lint
    - **整卷模式**：适合完整模拟
    - **逐题模式**：适合刷题；支持底部导航与抽屉“答题卡”
 4. 点击 **“提交试卷/提交”**：
-   - 可自动判分的题会立即计算得分
+   - **逐题模式（Single）**：提交后才显示分数与答案解析
+   - **整卷模式（Full）**：会实时展示“自动得分”，提交后显示答案解析
    - `short_answer` / `calculation`（以及无参考答案的 `coding`）会显示为 **待评分**
+
+## 修改内置示例试卷
+
+项目启动后默认加载的示例试卷是：`src/assets/ML1.json`。
+
+- 只改页面显示的标题：修改 `src/assets/ML1.json` 中的 `examMeta.title`
+- 改示例文件名/替换为你的 JSON：重命名/替换 `src/assets/ML1.json`，并同步修改 `src/components/ExamPaper.tsx` 中的 `import ML1 from '../assets/ML1.json'`
+
+## AI 批改（可选）
+
+本项目已内置 **客观题自动判分**（单选/多选/判断/填空/部分编程题）。AI 更适合用于对以下“待评分”题型进行批改与判分：
+
+- `short_answer`（简答题）
+- `calculation`（计算题）
+- `coding` 且 `correctAnswer` 为空字符串（无参考答案）
+
+### 启用方式
+
+1. 配置服务端环境变量：复制 `.env.example` 为 `.env`，填入你的第三方 OpenAI 格式 `AI_BASE_URL`/`AI_API_KEY`/`AI_MODEL`
+2. 启动 AI 服务端（保持运行）：
+
+```bash
+pnpm ai:server
+```
+
+3. 启动前端：
+
+```bash
+pnpm dev
+```
+
+4. 提交试卷后，点击页面中的 **“AI 批改 / AI 批改待评分题”** 按钮即可回填 AI 得分与评语。
 
 ## 试卷 JSON 协议（核心）
 

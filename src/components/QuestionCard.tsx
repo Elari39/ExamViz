@@ -3,7 +3,7 @@ import type { Question } from '../types/exam';
 import { SingleChoice, MultipleChoice, TrueFalse, FillInBlank, ShortAnswer, CodeQuestion } from './AnswerInputs';
 import { useExamStore } from '../store/examStore';
 import Latex from 'react-latex-next';
-import { gradeQuestion, isEmptyAnswer } from '../utils/grading';
+import { gradeQuestion } from '../utils/grading';
 
 interface Props {
   question: Question;
@@ -24,9 +24,9 @@ const formatChoiceLabels = (question: Question, labels: string[]) => {
 };
 
 export default function QuestionCard({ question }: Props) {
-  const { answers, setAnswer, submitted, viewMode } = useExamStore();
+  const { answers, setAnswer, submitted } = useExamStore();
   const userAnswer = answers[question.id];
-  const grade = gradeQuestion(question, userAnswer?.answer);
+  const grade = gradeQuestion(question, userAnswer);
 
   const renderAnswerInput = () => {
     switch (question.type) {
@@ -91,44 +91,6 @@ export default function QuestionCard({ question }: Props) {
     }
   };
 
-  const renderInstantFeedback = () => {
-    if (submitted) return null;
-    if (viewMode !== 'single') return null;
-    if (!userAnswer || isEmptyAnswer(userAnswer.answer)) return null;
-
-    let type: 'success' | 'warning' | 'error' | 'info';
-    let title: string;
-
-    switch (grade.state) {
-      case 'correct':
-        type = 'success';
-        title = `本题正确：+${grade.score} 分`;
-        break;
-      case 'partial':
-        type = 'warning';
-        title = `本题部分正确：+${grade.score} 分`;
-        break;
-      case 'pending':
-        type = 'info';
-        title = '本题为主观题：待人工评分';
-        break;
-      case 'wrong':
-      default:
-        type = 'error';
-        title = '本题错误：+0 分';
-        break;
-    }
-
-    return (
-      <Alert
-        type={type}
-        message={<span className="font-medium">{title}</span>}
-        showIcon
-        className="mt-4"
-      />
-    );
-  };
-
   const renderAnalysis = () => {
     if (!submitted) return null;
 
@@ -174,7 +136,7 @@ export default function QuestionCard({ question }: Props) {
       <div className="mt-4 pt-4 border-t border-gray-200">
         <Alert
           type={type}
-          message={
+          title={
             <Space>
               <span className="font-medium">{title}</span>
               {grade.state === 'pending' ? (
@@ -192,6 +154,12 @@ export default function QuestionCard({ question }: Props) {
                 <div>
                   <span className="font-medium text-gray-700">正确答案：</span>
                   <span className="text-gray-600">{correctAnswerText}</span>
+                </div>
+              )}
+              {userAnswer?.aiGrade?.feedback && (
+                <div>
+                  <span className="font-medium text-gray-700">AI 评语：</span>
+                  <span className="text-gray-600">{userAnswer.aiGrade.feedback}</span>
                 </div>
               )}
               {question.analysis && (
@@ -249,7 +217,6 @@ export default function QuestionCard({ question }: Props) {
 
       <div className="ml-12">
         {renderAnswerInput()}
-        {renderInstantFeedback()}
         {renderAnalysis()}
       </div>
     </Card>

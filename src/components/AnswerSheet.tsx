@@ -27,7 +27,7 @@ export default function AnswerSheet({ onJump }: Props) {
     <Card
       title="答题卡"
       className="!rounded-xl !border-gray-200 shadow-sm sticky top-4"
-      bodyStyle={{ padding: '16px' }}
+      styles={{ body: { padding: '16px' } }}
     >
       <div className="space-y-4 max-h-[60vh] overflow-y-auto">
         {examPaper.sections.map((section, sectionIndex) => (
@@ -39,7 +39,7 @@ export default function AnswerSheet({ onJump }: Props) {
               {section.questions.map((question, questionIndex) => {
                 const answered = isAnswered(question.id);
                 const isCurrent = sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex;
-                const grade = submitted ? gradeQuestion(question, answers[question.id]?.answer) : null;
+                const grade = submitted ? gradeQuestion(question, answers[question.id]) : null;
                 const isCorrect = grade?.state === 'correct';
                 const isPartial = grade?.state === 'partial';
                 const isPending = grade?.state === 'pending';

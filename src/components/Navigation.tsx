@@ -1,4 +1,4 @@
-import { Button, Progress, Space } from 'antd';
+import { Button, Progress, Space, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useMemo } from 'react';
 import { useExamStore } from '../store/examStore';
@@ -12,6 +12,8 @@ export default function Navigation() {
     submitted,
     submit,
     reset,
+    gradeWithAI,
+    aiGradingStatus,
     currentSectionIndex,
     currentQuestionIndex,
     nextQuestion,
@@ -31,6 +33,7 @@ export default function Navigation() {
     currentQuestionIndex === sections[currentSectionIndex].questions.length - 1;
   const answeredPercentage =
     stats.totalQuestions > 0 ? Math.round((answeredCount / stats.totalQuestions) * 100) : 0;
+  const hasAiGraded = Object.values(answers).some((a) => a.aiGrade);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg py-4 px-6 z-50">
@@ -45,8 +48,14 @@ export default function Navigation() {
           </div>
           <div className="mt-1 flex items-center gap-3 text-xs text-gray-600">
             <span className="tabular-nums">
-              自动得分 <span className="font-semibold text-blue-600">{stats.currentScore}</span> /{' '}
-              {stats.autoTotalScore}
+              自动得分{' '}
+              {submitted ? (
+                <>
+                  <span className="font-semibold text-blue-600">{stats.currentScore}</span> / {stats.autoTotalScore}
+                </>
+              ) : (
+                <span className="font-semibold text-gray-500">提交后显示</span>
+              )}
             </span>
             <span className="text-gray-300">·</span>
             <span className="tabular-nums">
@@ -65,9 +74,30 @@ export default function Navigation() {
 
         <Space size="large">
           {submitted ? (
-            <Button onClick={reset} className="!rounded-lg">
-              重新作答
-            </Button>
+            <>
+              {(stats.pendingQuestions > 0 || hasAiGraded) && (
+                <Button
+                  onClick={async () => {
+                    try {
+                      const regrade = stats.pendingQuestions === 0;
+                      const { graded } = await gradeWithAI({ regrade });
+                      if (graded <= 0) message.info('没有需要 AI 批改的题目');
+                      else message.success(`AI 已批改 ${graded} 题`);
+                    } catch (err) {
+                      const msg = err instanceof Error ? err.message : 'AI 批改失败';
+                      message.error(msg);
+                    }
+                  }}
+                  loading={aiGradingStatus === 'grading'}
+                  className="!rounded-lg"
+                >
+                  {stats.pendingQuestions > 0 ? 'AI 批改' : 'AI 重新批改'}
+                </Button>
+              )}
+              <Button onClick={reset} className="!rounded-lg">
+                重新作答
+              </Button>
+            </>
           ) : (
             <Button onClick={submit} className="!rounded-lg">
               提交

@@ -1,0 +1,1065 @@
+{
+    "examMeta": {
+        "id": "ML_FINAL_2026_SIM",
+        "title": "2026年机器学习课程期末模拟试卷",
+        "totalScore": 100,
+        "duration": 120,
+        "createTime": "2026-01-11T12:00:00Z",
+        "description": "考试时间：120分钟（建议做满，不要提前交卷）。本试卷包含单选、多选、名词解释、简答、计算及代码填空题。"
+    },
+    "sections": [
+        {
+            "id": "SEC_01",
+            "title": "一、 单项选择题",
+            "description": "共15题，每题1分，共15分",
+            "type": "single_choice",
+            "questions": [
+                {
+                    "id": "Q_1_01",
+                    "idx": 1,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "关于人工智能（AI）、机器学习（ML）和深度学习（DL）的关系，符合老师所画“大图”描述的是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "机器学习包含人工智能"
+                        },
+                        {
+                            "label": "B",
+                            "value": "深度学习与机器学习是平行关系"
+                        },
+                        {
+                            "label": "C",
+                            "value": "人工智能 > 机器学习 > 深度学习"
+                        },
+                        {
+                            "label": "D",
+                            "value": "深度学习包含人工智能"
+                        }
+                    ],
+                    "correctAnswer": "C",
+                    "analysis": "人工智能(AI) > 机器学习(ML) > 深度学习(DL)。AI是最宽泛的概念，ML是AI的子集，DL是ML的子集。"
+                },
+                {
+                    "id": "Q_1_02",
+                    "idx": 2,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "下列任务中属于“有监督学习”中“回归”任务的是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "垃圾邮件识别"
+                        },
+                        {
+                            "label": "B",
+                            "value": "房价走势预测"
+                        },
+                        {
+                            "label": "C",
+                            "value": "客户价值分群"
+                        },
+                        {
+                            "label": "D",
+                            "value": "图片风格迁移"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "A是分类；B是回归（连续数值）；C是聚类（无监督）；D通常属于生成模型。"
+                },
+                {
+                    "id": "Q_1_03",
+                    "idx": 3,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "KNN（K-最近邻）算法在计算时，主要的优点是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "需要复杂的参数训练"
+                        },
+                        {
+                            "label": "B",
+                            "value": "模型可解释性在所有算法中最高"
+                        },
+                        {
+                            "label": "C",
+                            "value": "不需要显式的训练过程，直接计算距离"
+                        },
+                        {
+                            "label": "D",
+                            "value": "预测速度随样本量增大而变快"
+                        }
+                    ],
+                    "correctAnswer": "C",
+                    "analysis": "KNN是懒惰学习（Lazy Learning），没有显式的训练过程（Training phase is 0）。预测时计算量大，随样本量增大变慢。"
+                },
+                {
+                    "id": "Q_1_04",
+                    "idx": 4,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "逻辑回归（Logistic Regression）输出值的物理意义通常被理解为：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "样本的绝对数值"
+                        },
+                        {
+                            "label": "B",
+                            "value": "样本属于某一类别的概率"
+                        },
+                        {
+                            "label": "C",
+                            "value": "样本到决策边界的距离"
+                        },
+                        {
+                            "label": "D",
+                            "value": "簇的中心点坐标"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "逻辑回归通过 Sigmoid 函数将线性输出映射到 (0,1) 区间，表示属于正类的概率。"
+                },
+                {
+                    "id": "Q_1_05",
+                    "idx": 5,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "在特征选择中，能够将不重要特征的系数压缩为“0”从而实现特征剔除的是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "岭回归（L2正则）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "Lasso回归（L1正则）"
+                        },
+                        {
+                            "label": "C",
+                            "value": "线性回归"
+                        },
+                        {
+                            "label": "D",
+                            "value": "逻辑回归"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "L1正则化（Lasso）的解空间是菱形，容易在坐标轴上相切，导致系数变为0，实现稀疏化和特征选择。"
+                },
+                {
+                    "id": "Q_1_06",
+                    "idx": 6,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "下列哪种数据分布最不适合使用 K-means 聚类算法？",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "球状分布"
+                        },
+                        {
+                            "label": "B",
+                            "value": "高斯分布"
+                        },
+                        {
+                            "label": "C",
+                            "value": "螺旋形或笑脸形分布"
+                        },
+                        {
+                            "label": "D",
+                            "value": "凸集分布"
+                        }
+                    ],
+                    "correctAnswer": "C",
+                    "analysis": "K-means 假设簇是凸的且各向同性，对于非凸形状（如螺旋、笑脸）效果极差。"
+                },
+                {
+                    "id": "Q_1_07",
+                    "idx": 7,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "BP神经网络训练的核心机制是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "只有正向传播计算"
+                        },
+                        {
+                            "label": "B",
+                            "value": "通过反向传播误差来更新权重和偏置"
+                        },
+                        {
+                            "label": "C",
+                            "value": "递归消除不重要神经元"
+                        },
+                        {
+                            "label": "D",
+                            "value": "仅通过增加层数提高精度"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "BP（Back Propagation）即误差反向传播，核心是计算误差梯度并反向更新权重。"
+                },
+                {
+                    "id": "Q_1_08",
+                    "idx": 8,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "决策树算法 ID3 采用的度量指标是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "基尼系数（Gini）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "信息增益（Information Gain）"
+                        },
+                        {
+                            "label": "C",
+                            "value": "信息增益率"
+                        },
+                        {
+                            "label": "D",
+                            "value": "均方误差"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "ID3使用信息增益；C4.5使用信息增益率；CART使用基尼系数。"
+                },
+                {
+                    "id": "Q_1_09",
+                    "idx": 9,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "SVM（支持向量机）中，“软间隔”的作用主要是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "必须要求所有样本分类正确"
+                        },
+                        {
+                            "label": "B",
+                            "value": "允许少量样本在间隔带内，以提高泛化能力"
+                        },
+                        {
+                            "label": "C",
+                            "value": "强制决策边界为非线性"
+                        },
+                        {
+                            "label": "D",
+                            "value": "减少支持向量的数量"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "软间隔引入松弛变量，允许部分误分类，以换取更大的间隔和更好的鲁棒性（防过拟合）。"
+                },
+                {
+                    "id": "Q_1_10",
+                    "idx": 10,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "关于朴素贝叶斯中的“拉普拉斯平滑”，描述正确的是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "为了让计算速度变快"
+                        },
+                        {
+                            "label": "B",
+                            "value": "为了防止分子或分母为0导致概率塌陷"
+                        },
+                        {
+                            "label": "C",
+                            "value": "为了进行特征降维"
+                        },
+                        {
+                            "label": "D",
+                            "value": "为了处理非独立特征"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "解决零概率问题：如果某个特征未出现，概率为0，连乘会导致结果为0。"
+                },
+                {
+                    "id": "Q_1_11",
+                    "idx": 11,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "在回归模型评价指标中，受量纲影响最小且能体现拟合优度的是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "MSE"
+                        },
+                        {
+                            "label": "B",
+                            "value": "RMSE"
+                        },
+                        {
+                            "label": "C",
+                            "value": "MAE"
+                        },
+                        {
+                            "label": "D",
+                            "value": "R² (R方)"
+                        }
+                    ],
+                    "correctAnswer": "D",
+                    "analysis": "R² 是归一化的值（0-1），与量纲无关，直观体现拟合优度。"
+                },
+                {
+                    "id": "Q_1_12",
+                    "idx": 12,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "集成学习中，Boosting（如AdaBoost）的特点是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "各分类器之间相互独立"
+                        },
+                        {
+                            "label": "B",
+                            "value": "并行训练"
+                        },
+                        {
+                            "label": "C",
+                            "value": "串行迭代，每一轮关注上一轮的残差"
+                        },
+                        {
+                            "label": "D",
+                            "value": "旨在增加模型的方差"
+                        }
+                    ],
+                    "correctAnswer": "C",
+                    "analysis": "Boosting 是串行迭代，重点关注分错的样本（减少偏差）；Bagging 是并行训练（减少方差）。"
+                },
+                {
+                    "id": "Q_1_13",
+                    "idx": 13,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "神经网络要解决“异或”（XOR）非线性问题，至少需要几个隐藏层？",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "0个"
+                        },
+                        {
+                            "label": "B",
+                            "value": "1个"
+                        },
+                        {
+                            "label": "C",
+                            "value": "5个"
+                        },
+                        {
+                            "label": "D",
+                            "value": "10个"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "单层感知机（0隐层）只能解决线性问题；XOR是非线性问题，至少需要1个隐藏层。"
+                },
+                {
+                    "id": "Q_1_14",
+                    "idx": 14,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "SVM常用的优化算法是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "随机梯度下降"
+                        },
+                        {
+                            "label": "B",
+                            "value": "SMO算法"
+                        },
+                        {
+                            "label": "C",
+                            "value": "坐标轴下降法"
+                        },
+                        {
+                            "label": "D",
+                            "value": "递归消除法"
+                        }
+                    ],
+                    "correctAnswer": "B",
+                    "analysis": "SMO (Sequential Minimal Optimization) 是专门用于快速求解 SVM 二次规划问题的算法。"
+                },
+                {
+                    "id": "Q_1_15",
+                    "idx": 15,
+                    "score": 1,
+                    "type": "single_choice",
+                    "content": "在 Python 科学计算库中，Matplotlib 的主要职责是：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "矩阵运算"
+                        },
+                        {
+                            "label": "B",
+                            "value": "数据预处理"
+                        },
+                        {
+                            "label": "C",
+                            "value": "数据可视化绘图"
+                        },
+                        {
+                            "label": "D",
+                            "value": "建立深度学习模型"
+                        }
+                    ],
+                    "correctAnswer": "C",
+                    "analysis": "Matplotlib 是绘图库；NumPy 是矩阵运算；Pandas 是数据处理。"
+                }
+            ]
+        },
+        {
+            "id": "SEC_02",
+            "title": "二、 多项选择题",
+            "description": "共15题，每题1分，共15分。多选、少选、错选均不得分",
+            "type": "multiple_choice",
+            "questions": [
+                {
+                    "id": "Q_2_01",
+                    "idx": 1,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "下列属于无监督学习任务的有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "PCA降维"
+                        },
+                        {
+                            "label": "B",
+                            "value": "K-means聚类"
+                        },
+                        {
+                            "label": "C",
+                            "value": "逻辑回归"
+                        },
+                        {
+                            "label": "D",
+                            "value": "朴素贝叶斯"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B"
+                    ],
+                    "analysis": "A、B 为无监督（无标签）；C、D 为有监督分类。"
+                },
+                {
+                    "id": "Q_2_02",
+                    "idx": 2,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "机器学习的一般处理流程包括：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "数据预处理"
+                        },
+                        {
+                            "label": "B",
+                            "value": "特征工程/分析"
+                        },
+                        {
+                            "label": "C",
+                            "value": "建立模型"
+                        },
+                        {
+                            "label": "D",
+                            "value": "测量精度与反复反馈"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ],
+                    "analysis": "标准流程：数据 -> 特征 -> 模型 -> 评估。"
+                },
+                {
+                    "id": "Q_2_03",
+                    "idx": 3,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "KNN算法的缺点有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "预测时计算量大"
+                        },
+                        {
+                            "label": "B",
+                            "value": "容易受异常值影响"
+                        },
+                        {
+                            "label": "C",
+                            "value": "遇到高维数据表现不佳（维度灾难）"
+                        },
+                        {
+                            "label": "D",
+                            "value": "需要极长的训练时间"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "KNN 几乎没有训练时间（D错），但在预测时计算量大（A对）。"
+                },
+                {
+                    "id": "Q_2_04",
+                    "idx": 4,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "关于逻辑回归，正确的说法有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "它是分类算法"
+                        },
+                        {
+                            "label": "B",
+                            "value": "它的决策边界是线性的"
+                        },
+                        {
+                            "label": "C",
+                            "value": "它使用 Sigmoid 函数"
+                        },
+                        {
+                            "label": "D",
+                            "value": "它的损失函数通常使用交叉熵"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ],
+                    "analysis": "逻辑回归是典型的线性分类器，使用 Sigmoid 和 Log Loss（交叉熵）。"
+                },
+                {
+                    "id": "Q_2_05",
+                    "idx": 5,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "属于集成学习（Ensemble Learning）范畴的有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "Bagging（随机森林）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "Boosting（XGBoost）"
+                        },
+                        {
+                            "label": "C",
+                            "value": "Stacking"
+                        },
+                        {
+                            "label": "D",
+                            "value": "简单线性回归"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "D 是单模型，不是集成学习。"
+                },
+                {
+                    "id": "Q_2_06",
+                    "idx": 6,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "防止“过拟合”的方法包括：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "正则化（L1/L2）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "决策树剪枝"
+                        },
+                        {
+                            "label": "C",
+                            "value": "增加训练样本数量"
+                        },
+                        {
+                            "label": "D",
+                            "value": "增加模型隐藏层深度"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "增加深度（D）会增加模型复杂度，反而加重过拟合。"
+                },
+                {
+                    "id": "Q_2_07",
+                    "idx": 7,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "关于 SVM，正确的描述有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "支持向量决定了决策边界"
+                        },
+                        {
+                            "label": "B",
+                            "value": "核函数可以将低维映射到高维"
+                        },
+                        {
+                            "label": "C",
+                            "value": "C参数是惩罚项，控制对错误的容忍度"
+                        },
+                        {
+                            "label": "D",
+                            "value": "SVC 用于分类，SVR 用于回归"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ],
+                    "analysis": "所有选项均为 SVM 的核心特性。"
+                },
+                {
+                    "id": "Q_2_08",
+                    "idx": 8,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "K-means 算法对下列哪些因素敏感？",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "初始聚类中心的选择"
+                        },
+                        {
+                            "label": "B",
+                            "value": "离群点/异常值"
+                        },
+                        {
+                            "label": "C",
+                            "value": "特征的量纲（单位）"
+                        },
+                        {
+                            "label": "D",
+                            "value": "簇的数量K值"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "D"
+                    ],
+                    "analysis": "欧氏距离对量纲也敏感（C其实也对，但根据标准答案侧重于算法逻辑缺陷，A/B/D是K-means特有痛点）。"
+                },
+                {
+                    "id": "Q_2_09",
+                    "idx": 9,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "神经网络中的“激活函数”作用包括：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "引入非线性因素"
+                        },
+                        {
+                            "label": "B",
+                            "value": "限制输出范围"
+                        },
+                        {
+                            "label": "C",
+                            "value": "代替损失函数"
+                        },
+                        {
+                            "label": "D",
+                            "value": "辅助反向传播计算梯度"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "D"
+                    ],
+                    "analysis": "激活函数不是损失函数（C错）。"
+                },
+                {
+                    "id": "Q_2_10",
+                    "idx": 10,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "常用的特征选择方法有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "递归特征消除（RFE）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "基于信息增益排序"
+                        },
+                        {
+                            "label": "C",
+                            "value": "L1正则化（Lasso）"
+                        },
+                        {
+                            "label": "D",
+                            "value": "K折交叉验证"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "D是评估方法，不直接用于选择特征。"
+                },
+                {
+                    "id": "Q_2_11",
+                    "idx": 11,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "朴素贝叶斯的“朴素”体现在：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "假设特征间相互独立"
+                        },
+                        {
+                            "label": "B",
+                            "value": "算法简单，不计算概率"
+                        },
+                        {
+                            "label": "C",
+                            "value": "假设所有特征权重相同"
+                        },
+                        {
+                            "label": "D",
+                            "value": "假设样本量无穷大"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A"
+                    ],
+                    "analysis": "朴素 = Strong Independence Assumption（独立性假设）。"
+                },
+                {
+                    "id": "Q_2_12",
+                    "idx": 12,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "下列关于正则化描述正确的有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "L1 倾向于产生稀疏特征（特征选择）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "L2 倾向于让权重变小（平滑模型）"
+                        },
+                        {
+                            "label": "C",
+                            "value": "正则化是放在损失函数后的惩罚项"
+                        },
+                        {
+                            "label": "D",
+                            "value": "正则化会增加模型的复杂度"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "正则化是限制模型复杂度，D错。"
+                },
+                {
+                    "id": "Q_2_13",
+                    "idx": 13,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "回归任务的常见评价指标包括：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "MAE（平均绝对误差）"
+                        },
+                        {
+                            "label": "B",
+                            "value": "MSE（均方误差）"
+                        },
+                        {
+                            "label": "C",
+                            "value": "准确率（Accuracy）"
+                        },
+                        {
+                            "label": "D",
+                            "value": "R²"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "D"
+                    ],
+                    "analysis": "Accuracy 是分类指标。"
+                },
+                {
+                    "id": "Q_2_14",
+                    "idx": 14,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "在模型训练中，属于“超参数”的有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "学习率 η"
+                        },
+                        {
+                            "label": "B",
+                            "value": "KNN 中的 K 值"
+                        },
+                        {
+                            "label": "C",
+                            "value": "决策树的最大深度"
+                        },
+                        {
+                            "label": "D",
+                            "value": "神经网络训练后的权重 w"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "B",
+                        "C"
+                    ],
+                    "analysis": "权重 w 是训练出来的模型参数，不是超参数。"
+                },
+                {
+                    "id": "Q_2_15",
+                    "idx": 15,
+                    "score": 1,
+                    "type": "multiple_choice",
+                    "content": "关于深度学习，正确的描述有：",
+                    "options": [
+                        {
+                            "label": "A",
+                            "value": "它是机器学习的一个子集"
+                        },
+                        {
+                            "label": "B",
+                            "value": "层数越多一定效果越好"
+                        },
+                        {
+                            "label": "C",
+                            "value": "能够自动进行特征提取"
+                        },
+                        {
+                            "label": "D",
+                            "value": "训练通常需要大量的数据支撑"
+                        }
+                    ],
+                    "correctAnswer": [
+                        "A",
+                        "C",
+                        "D"
+                    ],
+                    "analysis": "层数过深会导致退化问题，不一定效果好（B错）。"
+                }
+            ]
+        },
+        {
+            "id": "SEC_03",
+            "title": "三、 名词解释",
+            "description": "共5题，每题2分，共10分",
+            "type": "short_answer",
+            "questions": [
+                {
+                    "id": "Q_3_01",
+                    "idx": 1,
+                    "score": 2,
+                    "type": "short_answer",
+                    "content": "过拟合（Overfitting）：",
+                    "correctAnswer": "指模型在训练集上表现非常好（误差极低），但在测试集或新数据上表现很差的现象。其本质是模型把训练数据中的噪声和偶然特征当成了普遍规律学习了，导致模型泛化能力差。",
+                    "analysis": "关键词：训练集好、测试集差、泛化能力弱。"
+                },
+                {
+                    "id": "Q_3_02",
+                    "idx": 2,
+                    "score": 2,
+                    "type": "short_answer",
+                    "content": "软间隔（Soft Margin）：",
+                    "correctAnswer": "在支持向量机（SVM）中，为了解决数据并非线性可分或存在噪声的问题，允许一部分样本点出现在间隔带内部甚至被错误分类。通过引入松弛变量和惩罚系数C来平衡“间隔最大化”和“分类误差最小化”。",
+                    "analysis": "对比硬间隔（Hard Margin）。"
+                },
+                {
+                    "id": "Q_3_03",
+                    "idx": 3,
+                    "score": 2,
+                    "type": "short_answer",
+                    "content": "K折交叉验证（K-fold Cross-validation）：",
+                    "correctAnswer": "一种评估模型性能的统计学方法。将原始数据集随机平均分为K份，依次取其中1份作为测试集，剩余K-1份作为训练集，重复K次训练和测试，最后取K次结果的平均值作为模型的最终评估指标。",
+                    "analysis": "用于更客观地评估模型泛化能力，充分利用数据。"
+                },
+                {
+                    "id": "Q_3_04",
+                    "idx": 4,
+                    "score": 2,
+                    "type": "short_answer",
+                    "content": "拉普拉斯平滑（Laplace Smoothing）：",
+                    "correctAnswer": "专门用于朴素贝叶斯算法中，解决因某个特征未在训练集中出现而导致概率为0（从而使整体概率乘积为0）的问题。方法是在分子加1，分母加类别数。",
+                    "analysis": "防止概率塌陷。"
+                },
+                {
+                    "id": "Q_3_05",
+                    "idx": 5,
+                    "score": 2,
+                    "type": "short_answer",
+                    "content": "BP算法（Back Propagation）：",
+                    "correctAnswer": "即误差反向传播算法，是训练多层神经网络的核心算法。它通过计算输出层与真实标签的误差，利用链式法则将误差梯度从输出层向输入层反向传播，从而调整各层神经元的权重和偏置。",
+                    "analysis": "深度学习的基石。"
+                }
+            ]
+        },
+        {
+            "id": "SEC_04",
+            "title": "四、 简答题",
+            "description": "共5题，每题4分，共20分",
+            "type": "short_answer",
+            "questions": [
+                {
+                    "id": "Q_4_01",
+                    "idx": 1,
+                    "score": 4,
+                    "type": "short_answer",
+                    "content": "有监督与无监督：请分别列举出 3 个有监督学习算法名称和 2 个无监督学习算法名称。",
+                    "correctAnswer": "有监督：逻辑回归、SVM、决策树（或KNN、朴素贝叶斯）；无监督：K-means聚类、PCA降维（或DBSCAN）。",
+                    "analysis": "有监督需标签，无监督无标签。"
+                },
+                {
+                    "id": "Q_4_02",
+                    "idx": 2,
+                    "score": 4,
+                    "type": "short_answer",
+                    "content": "过拟合预防（负样本）：在录音中老师强调了“负样本”在识别任务中的重要性。请简述在“狗类识别模型”中，如果不加入“房子、森林、人”等非狗图片作为负样本，模型在实际使用中会出现什么问题？",
+                    "correctAnswer": "模型会学到“只要是一张图片就是狗”或者基于错误的特征（如背景颜色）来判断。实际使用中，输入任何非狗图片都会被误判为狗，因为模型没有学会区分“什么不是狗”。",
+                    "analysis": "负样本定义了决策边界的另一侧。"
+                },
+                {
+                    "id": "Q_4_03",
+                    "idx": 3,
+                    "score": 4,
+                    "type": "short_answer",
+                    "content": "决策树算法对比：请写出 ID3、C4.5、CART 三种算法各自所采用的指标（准则）名称。",
+                    "correctAnswer": "ID3：信息增益；C4.5：信息增益率；CART：基尼系数。",
+                    "analysis": "考察经典决策树指标。"
+                },
+                {
+                    "id": "Q_4_04",
+                    "idx": 4,
+                    "score": 4,
+                    "type": "short_answer",
+                    "content": "逻辑回归 vs KNN：从“训练阶段”的角度，简述这两者在处理数据时的本质区别。",
+                    "correctAnswer": "逻辑回归是 Eager Learning，训练时迭代计算参数，训练完后丢弃数据；KNN 是 Lazy Learning，训练阶段基本不工作（只存储数据），计算发生在预测时。",
+                    "analysis": "Eager vs Lazy Learning。"
+                },
+                {
+                    "id": "Q_4_05",
+                    "idx": 5,
+                    "score": 4,
+                    "type": "short_answer",
+                    "content": "集成学习目标：简述集成学习的核心目标，并各列举一个代表算法。",
+                    "correctAnswer": "核心目标：组合多个弱学习器构建强学习器，提高泛化能力（降低方差或偏差）。代表算法：随机森林（Bagging）、AdaBoost/XGBoost（Boosting）。",
+                    "analysis": "三个臭皮匠，顶个诸葛亮。"
+                }
+            ]
+        },
+        {
+            "id": "SEC_05",
+            "title": "五、 计算题",
+            "description": "共3题，每题10分，共30分",
+            "type": "calculation",
+            "questions": [
+                {
+                    "id": "Q_5_01",
+                    "idx": 1,
+                    "score": 10,
+                    "type": "calculation",
+                    "isLatex": true,
+                    "content": "已知某二分类任务的混淆矩阵如下：\nTP=150, FP=50, FN=20, TN=180\n\n(1) 计算该模型的准确率 (Accuracy) 和 精确率 (Precision)。\n(2) 如果已知真实负例样本总数为 230，根据 FP=50，请计算 TN 的新值。",
+                    "correctAnswer": "(1) Accuracy = (150+180)/400 = 0.825; Precision = 150/(150+50) = 0.75\n(2) TN = 真实负例总数 - FP = 230 - 50 = 180",
+                    "analysis": "Accuracy=(TP+TN)/Total; Precision=TP/(TP+FP)。"
+                },
+                {
+                    "id": "Q_5_02",
+                    "idx": 2,
+                    "score": 10,
+                    "type": "calculation",
+                    "isLatex": true,
+                    "content": "已知一个贝叶斯网络：A和B独立，C依赖于A和B ($$A, B \\rightarrow C$$)。\n(1) 画出其拓扑结构图（描述即可）。\n(2) 写出联合概率 $$P(A, B, C)$$ 的分解公式。\n(3) 若 $$P(A)=0.6, P(B)=0.5, P(C|A,B)=0.8$$，求 $$P(A=1, B=1, C=1)$$。",
+                    "correctAnswer": "(1) A->C, B->C\n(2) P(A,B,C) = P(A)*P(B)*P(C|A,B)\n(3) 0.6 * 0.5 * 0.8 = 0.24",
+                    "analysis": "贝叶斯网络局部马尔可夫性：节点只取决于其父节点。"
+                },
+                {
+                    "id": "Q_5_03",
+                    "idx": 3,
+                    "score": 10,
+                    "type": "calculation",
+                    "isLatex": true,
+                    "content": "线性回归手算迭代：\n样本 $$X = [1.0, 2.0]$$，标签 $$y = 3.0$$。\n参数 $$w = [0.5, 0.5]$$，$$b = 0$$，学习率 $$\\eta = 0.1$$。\n(1) 计算预测值 $$\\hat{y}$$。\n(2) 计算梯度向量 $$\\Delta w$$。\n(3) 计算更新后的权重 $$w_{new}$$。",
+                    "correctAnswer": "(1) y_hat = 0.5*1 + 0.5*2 = 1.5\n(2) Error = 1.5 - 3.0 = -1.5; grad = Error * X = [-1.5, -3.0]\n(3) w_new = [0.5, 0.5] - 0.1*[-1.5, -3.0] = [0.65, 0.8]",
+                    "analysis": "梯度下降公式：w = w - learning_rate * gradient。"
+                }
+            ]
+        },
+        {
+            "id": "SEC_06",
+            "title": "六、 代码题",
+            "description": "共1题，10分。请在代码空白处填入正确的函数或变量名。",
+            "type": "fill_in_blank",
+            "questions": [
+                {
+                    "id": "Q_6_01",
+                    "idx": 1,
+                    "score": 10,
+                    "type": "fill_in_blank",
+                    "content": "请补全基于 Scikit-learn 的逻辑回归训练流程：\n\n```python\n# 1. 导入数据集划分工具\nfrom sklearn.model_selection import ___\n\n# 2. 假设已有特征矩阵 X 和标签 y，划分比例为 7:3\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, ___ = 0.3, random_state=1\n)\n\n# 3. 初始化逻辑回归模型\nfrom sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression()\n\n# 4. 执行模型训练（拟合）\nmodel.___(X_train, y_train)\n\n# 5. 在测试集上进行预测\ny_pred = model.___(X_test)\n\n# 6. 可视化库\nimport ___ as plt\n```",
+                    "correctAnswer": [
+                        "train_test_split",
+                        "test_size",
+                        "fit",
+                        "predict",
+                        "matplotlib.pyplot"
+                    ],
+                    "analysis": "(A) train_test_split; (B) test_size; (C) fit; (D) predict; (E) matplotlib.pyplot"
+                }
+            ]
+        }
+    ]
+}
