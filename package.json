@@ -19,8 +19,12 @@
     "katex": "^0.16.27",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-latex-next": "^3.0.0",
+    "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^16.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
     "tailwindcss": "^4.1.18",
     "zustand": "^5.0.9"
   },

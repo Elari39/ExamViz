@@ -2,7 +2,7 @@ import { Card, Tag, Space, Alert } from 'antd';
 import type { Question } from '../types/exam';
 import { SingleChoice, MultipleChoice, TrueFalse, FillInBlank, ShortAnswer, CodeQuestion } from './AnswerInputs';
 import { useExamStore } from '../store/examStore';
-import Latex from 'react-latex-next';
+import MarkdownContent from './MarkdownContent';
 import { gradeQuestion } from '../utils/grading';
 
 interface Props {
@@ -153,19 +153,19 @@ export default function QuestionCard({ question }: Props) {
               {question.type !== 'coding' && (
                 <div>
                   <span className="font-medium text-gray-700">正确答案：</span>
-                  <span className="text-gray-600">{correctAnswerText}</span>
+                  <span className="text-gray-600 whitespace-pre-wrap break-words">{correctAnswerText}</span>
                 </div>
               )}
               {userAnswer?.aiGrade?.feedback && (
                 <div>
                   <span className="font-medium text-gray-700">AI 评语：</span>
-                  <span className="text-gray-600">{userAnswer.aiGrade.feedback}</span>
+                  <span className="text-gray-600 whitespace-pre-wrap break-words">{userAnswer.aiGrade.feedback}</span>
                 </div>
               )}
               {question.analysis && (
                 <div>
                   <span className="font-medium text-gray-700">解析：</span>
-                  <span className="text-gray-600">{question.analysis}</span>
+                  <span className="text-gray-600 whitespace-pre-wrap break-words">{question.analysis}</span>
                 </div>
               )}
             </div>
@@ -205,13 +205,9 @@ export default function QuestionCard({ question }: Props) {
               }[question.type]}
             </Tag>
           </div>
-          {question.isLatex ? (
-            <div className="text-gray-800 text-lg leading-relaxed whitespace-pre-wrap">
-              <Latex>{question.content}</Latex>
-            </div>
-          ) : (
-            <p className="text-gray-800 text-lg leading-relaxed whitespace-pre-wrap">{question.content}</p>
-          )}
+          <div className="text-gray-800 text-lg leading-relaxed">
+            <MarkdownContent content={question.content} enableMath={Boolean(question.isLatex)} />
+          </div>
         </div>
       </div>
 
